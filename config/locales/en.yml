@@ -30,4 +30,21 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  landing:
+    title: "Share task with the world and organize your live"
+    sub_title: "Better Organization to Get Focused"
+    description: "With TODO list you are going to make getting more organization to your live. Do you want to share your party list? You can, sign up now!"
+    sign_up: "Sign Up"
+    services:
+      tools:
+        title: "Study, work or party"
+        description: "You have ideas, we have tools to realise"
+      goal:
+        title: "Achieve your goals"
+        description: "Go ahead to your dreams, we are together with you"
+      share:
+        title: "Share your lists"
+        description: "Keep the world refreshed about your things"
+      define:
+        title: "Define your favorite lists"
+        description: "Do you like some list? Not lose, mark how your favorite and follow the progress it"
