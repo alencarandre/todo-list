@@ -13,18 +13,51 @@
  */
 
 @import "bootstrap";
+@import "font-awesome";
 
 .container-fluid {
   &.main {
     margin-top:80px;
-    margin-bottom: 80px;
+    margin-bottom: 60px;
+  }
+
+  h1 {
+    &.landing {
+      &.title {
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 30px;
+      }
+    }
+  }
+
+  section {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+
+  hr {
+    &.primary {
+      max-width: 80px;
+      padding-bottom: 20px;
+    }
+  }
+
+  .service-box {
+    h3 {
+      font-size: 24px;
+    }
   }
 }
 
-footer.page-footer {
-  position: fixed;
-  bottom: 0;
-  padding: 15px;
-  width: 100%;
-  background-color: white;
+footer {
+  &.page-footer {
+    position: fixed;
+    bottom: 0;
+    padding: 15px;
+    width: 100%;
+    background-color: white;
+  }
 }
