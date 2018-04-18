@@ -1,7 +1,6 @@
 RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
-    FactoryBot.find_definitions
   end
 
   config.before(:each) do
