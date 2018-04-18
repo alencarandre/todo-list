@@ -50,6 +50,34 @@
       font-size: 24px;
     }
   }
+
+  h2 {
+    &.page-title {
+      font-size: 30px;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 30px;
+    }
+  }
+
+  .actions {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .field_with_errors {
+    input {
+      border: 1px solid $danger; // bootstrap danger color
+    }
+
+    label {
+      @extend .text-danger;
+    }
+  }
+
+  span.error {
+    @extend .text-danger;
+  }
 }
 
 footer {

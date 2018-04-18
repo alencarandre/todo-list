@@ -1,12 +1,6 @@
 <li class="nav-item">
-  <a class="nav-link" href="#">Menu</a>
+  <%= link_to(t("sign_up"), new_user_registration_path, class: "nav-link") %>
 </li>
 <li class="nav-item">
-  <a class="nav-link" href="#">Menu</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="#">Menu</a>
-</li>
-<li class="nav-item">
-  <a class="nav-link" href="#">Menu</a>
+  <%= link_to(t("sign_in"), new_user_session_path, class: "nav-link") %>
 </li>

@@ -30,6 +30,17 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  sign_up: "Sign up"
+  sign_in: "Sign in"
+
+  btn_reset_password: "Send me reset password instructions"
+
+  forget_you_password: "Forgot your password?"
+  did_not_receive_unlock: "Didn't receive unlock instructions?"
+  did_not_receive_confirmation: "Didn't receive confirmation instructions?"
+
+  sign_up_oauth: "Sign in with %{provider}"
+
   landing:
     title: "Share task with the world and organize your live"
     sub_title: "Better Organization to Get Focused"
