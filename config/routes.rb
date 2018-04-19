@@ -4,5 +4,9 @@ Rails.application.routes.draw do
 
   resources :lists
 
+  namespace :lists do
+    resources :mine
+  end
+
   root "home#index"
 end
