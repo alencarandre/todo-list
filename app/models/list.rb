@@ -5,15 +5,13 @@
 #  id          :integer          not null, primary key
 #  name        :string           not null
 #  user_id     :integer          not null
-#  access_type :string           not null
-#  status      :string           not null
+#  access_type :integer          not null
+#  status      :integer          not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
 
 class List < ApplicationRecord
-  # extend EnumerizeConcern
-
   belongs_to :user
 
   enum status: [:opened, :closed]
@@ -23,4 +21,12 @@ class List < ApplicationRecord
   validates :user, presence: true
   validates :access_type, presence: true
   validates :status, presence: true
+
+  scope :by_user, -> (user) { where(user: user) }
+
+  def initialize(attrs = {})
+    super
+
+    self.status ||= :opened
+  end
 end

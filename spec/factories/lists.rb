@@ -5,8 +5,8 @@
 #  id          :integer          not null, primary key
 #  name        :string           not null
 #  user_id     :integer          not null
-#  access_type :string           not null
-#  status      :string           not null
+#  access_type :integer          not null
+#  status      :integer          not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #

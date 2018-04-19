@@ -5,8 +5,8 @@
 #  id          :integer          not null, primary key
 #  name        :string           not null
 #  user_id     :integer          not null
-#  access_type :string           not null
-#  status      :string           not null
+#  access_type :integer          not null
+#  status      :integer          not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #
@@ -27,6 +27,18 @@ RSpec.describe List, type: :model do
     it { should validate_presence_of(:status) }
   end
 
+  describe "#initialize" do
+    it 'set status = :opened by default' do
+      list = List.new
+      expect(list.status.to_sym).to eq(:opened)
+    end
+
+    it 'let set other values valid in status' do
+      list = List.new(status: :closed)
+      expect(list.status.to_sym).to eq(:closed)
+    end
+  end
+
   describe "#status=" do
     it 'when set invalid values, set nil' do
       list = List.new
@@ -35,7 +47,6 @@ RSpec.describe List, type: :model do
         expect {
           list.status = value
         }.to raise_error(ArgumentError)
-        # expect(list.status).to be_nil
       end
     end
 
@@ -67,6 +78,24 @@ RSpec.describe List, type: :model do
         list.access_type = value
         expect(list.access_type.to_sym).to eq(value)
       end
+    end
+  end
+
+  describe "#scopes" do
+    it '.by_user' do
+      user = FactoryBot.create(:user)
+      another_user = FactoryBot.create(:user)
+
+      list_1 = FactoryBot.create(:list, name: "List 1", user: another_user)
+      list_2 = FactoryBot.create(:list, name: "List 2", user: user)
+
+      lists = List.by_user(user).all
+      list = lists.first
+
+      expect(lists.count).to eq(1)
+      expect(list.id).to eq(list_2.id)
+      expect(list.name).to eq(list_2.name)
+      expect(list.user.id).to eq(list_2.user.id)
     end
   end
 end

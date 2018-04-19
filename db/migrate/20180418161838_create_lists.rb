@@ -3,8 +3,8 @@ class CreateLists < ActiveRecord::Migration[5.2]
     create_table :lists do |t|
       t.string :name, null: false
       t.references :user, foreign_key: true, null: false
-      t.string :access_type, null: false
-      t.string :status, null: false
+      t.integer :access_type, null: false
+      t.integer :status, null: false
 
       t.timestamps
     end
