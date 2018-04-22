@@ -1,0 +1,13 @@
+var li_task = $(".task_list[data-list='<%= @list.id %>']")
+                .find("li[data-task='<%= @list_task.id %>']")
+
+var form_container = li_task.find("div#form")
+
+<% if @list_task.errors.present? %>
+  form_container.html('<%= escape_javascript(render partial: "form")%>')
+<% else %>
+  var container = $(".task_list[data-list='<%= @list.id %>']")
+
+  var form = '<%= escape_javascript(render partial: "lists/tasks", locals: { list: @list }) %>'
+  container.find(".tasks").html(form)
+<% end %>

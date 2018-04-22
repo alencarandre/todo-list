@@ -1,11 +1,15 @@
 class ListTasksController < ApplicationController
   before_action :authenticate_user!
 
-  before_action :set_list, only: [:create, :update]
-  before_action :set_list_task, only: [:update]
-  before_action :new_list_task, only: [:create]
+  before_action :set_list, only: [:create, :update, :new, :edit]
+  before_action :set_list_task, only: [:update, :edit]
+  before_action :new_list_task, only: [:create, :new]
 
   respond_to :js
+
+  def new; end
+
+  def edit; end
 
   def create
     @list_task.attributes = list_task_params

@@ -1,0 +1,6 @@
+var container = $(".task_list[data-list='<%= @list.id %>']")
+                  .find("#list_task_form_new")
+
+$(container).hide()
+$(container).html('<%= escape_javascript( render partial: "form") %>')
+$(container).fadeIn()
