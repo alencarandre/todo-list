@@ -11,6 +11,22 @@ class ListTasksController < ApplicationController
 
   def edit; end
 
+  def mark_as_opened
+    @list_task = @list.list_tasks.find(params[:list_task_id])
+    @list_task.status = :opened
+    @list_task.save
+
+    respond_with @list, @list_task
+  end
+
+  def mark_as_closed
+    @list_task = @list.list_tasks.find(params[:list_task_id])
+    @list_task.status = :closed
+    @list_task.save
+
+    respond_with @list, @list_task
+  end
+
   def create
     @list_task.attributes = list_task_params
     @list_task.save

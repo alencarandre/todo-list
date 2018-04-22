@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   resources :lists, except: [:show] do
     resources :list_tasks do
       get '/new', to: 'list_tasks#new'
+
+      get 'mark_as_opened', to: 'list_tasks#mark_as_opened'
+      get 'mark_as_closed', to: 'list_tasks#mark_as_closed'
     end
   end
 
