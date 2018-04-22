@@ -27,6 +27,11 @@ RSpec.describe List, type: :model do
     it { should validate_presence_of(:status) }
   end
 
+  describe '#associations' do
+    it { should belong_to(:user) }
+    it { should have_many(:list_tasks) }
+  end
+
   describe "#initialize" do
     it 'set status = :opened by default' do
       list = List.new

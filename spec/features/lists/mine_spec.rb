@@ -61,25 +61,25 @@ feature "Lists::Mine" do
       expect(page).to have_content("My list (edited)")
     end
 
-    context 'when status list is opened' do
-      let(:logged_user) { FactoryBot.create(:user, password: '123456', password_confirmation: '123456')}
+    # context 'when status list is opened' do
+    #   let(:logged_user) { FactoryBot.create(:user, password: '123456', password_confirmation: '123456')}
+    #
+    #   scenario 'add task to list', js: true do
+    #     list = FactoryBot.create(:list,
+    #                               name: "My List",
+    #                               user: logged_user,
+    #                               access_type: "personal",
+    #                               status: "opened")
+    #
+    #     visit lists_mine_index_path
+    #
+    #     within(".task_list:first") do
+    #
+    #     end
+    #   end
+    # end
 
-      scenario 'add task to list', js: true do
-        list = FactoryBot.create(:list,
-                                  name: "My List",
-                                  user: logged_user,
-                                  access_type: "personal",
-                                  status: "opened")
-
-        visit lists_mine_index_path
-
-        within(".task_list:first") do
-
-        end
-      end
-    end
-
-    context 'when status list is closed' do
-    end
+    # context 'when status list is closed' do
+    # end
   end
 end

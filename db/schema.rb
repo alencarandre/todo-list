@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_04_18_161838) do
+ActiveRecord::Schema.define(version: 2018_04_22_004323) do
+
+  create_table "list_tasks", force: :cascade do |t|
+    t.integer "list_id"
+    t.string "name"
+    t.integer "list_task_id"
+    t.integer "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["list_id"], name: "index_list_tasks_on_list_id"
+    t.index ["list_task_id"], name: "index_list_tasks_on_list_task_id"
+  end
 
   create_table "lists", force: :cascade do |t|
     t.string "name", null: false

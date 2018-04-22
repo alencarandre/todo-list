@@ -13,6 +13,7 @@
 
 class List < ApplicationRecord
   belongs_to :user
+  has_many :list_tasks
 
   STATUS_VALUES = [:opened, :closed]
   ACCESS_TYPE_VALUES = [:shared, :personal]

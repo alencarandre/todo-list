@@ -34,7 +34,7 @@ RSpec.describe Lists::MineController, type: :controller do
     end
 
     context 'when user not logged' do
-      it 'gives http status 401 ' do
+      it 'redirect to login page' do
         get :index
         expect(response).to redirect_to("/users/sign_in")
       end
