@@ -15,7 +15,7 @@ class ListTask < ApplicationRecord
   belongs_to :list
   belongs_to :list_task, optional: true
 
-  has_many :list_tasks
+  has_many :list_tasks, dependent: :destroy
 
   STATUS_VALUES = [:opened, :closed]
 

@@ -91,4 +91,17 @@ RSpec.describe ListTask, type: :model do
       expect(ListTask.main_tasks.pluck(:id)).to eq([parent_task.id])
     end
   end
+
+  describe '#destroy' do
+    let(:parent_task) { FactoryBot.create(:list_task) }
+    let!(:task) { FactoryBot.create(:list_task,
+                              list: parent_task.list,
+                              list_task: parent_task) }
+
+    it 'when task is destroyed, destroy sub tasks as well' do
+      parent_task.destroy
+
+      expect(ListTask.where(id: task.id).first).to be_blank
+    end
+  end
 end
