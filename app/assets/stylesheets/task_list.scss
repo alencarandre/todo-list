@@ -1,0 +1,43 @@
+.tasks {
+  ul {
+    list-style: none;
+    margin-left: -30px;
+
+    ul {
+      margin-left: -25px;
+    }
+
+    li {
+      margin-left: 0px;
+      padding: 5px;
+
+      .row {
+        float: rigth;
+      }
+
+      &:before {
+        content: "";
+        float: left;
+        font-family: FontAwesome;
+        display: inline-block;
+        margin-left: -20px;
+        padding: top 10px;
+        color: #efefef;
+      }
+
+      &.closed {
+        color: silver;
+
+        &:before {
+          content: "\f00c";
+          color: #5A5A5A;
+        }
+
+        .text {
+          text-decoration:line-through;
+        }
+
+      }
+    }
+  }
+}

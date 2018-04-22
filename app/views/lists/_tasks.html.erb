@@ -1,11 +1,11 @@
 <div id="list_task_form_new"></div>
 <ul>
   <% tasks.each do |task| %>
-    <li data-task="<%= task.id %>">
+    <li data-task="<%= task.id %>" class="<%= task.status %>" >
       <div id="form" class="hidden"></div>
       <div class="row">
         <div class="col-sm-12">
-          <div class="pull-left"><%= task.name %></div>
+          <div class="pull-left text"><%= task.name %></div>
           <div class="pull-right">
             <%=
               link_to(
