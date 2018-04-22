@@ -1,0 +1,27 @@
+<div class="card border-secundary mb-3 task_list">
+  <div class="card-header">
+    <div class="pull-left">
+      <%=
+        link_to(
+          content_tag(:i, "", class: "fa fa-pencil"),
+          edit_list_path(list),
+          class: "edit", data: { remote: true }
+        )
+      %>
+      &nbsp;
+      <%= list.name %>
+    </div>
+    <div class="pull-right">
+      <%= content_tag :i, "", class: "fa fa-star-o" %>
+      <%= content_tag :i, "", class: "fa fa-unlock" %>
+      <%= content_tag :i, "", class: "fa fa-trash" %>
+    </div>
+  </div>
+  <div class="card-body text-secondary">
+    <ul>
+      <li>Task 1</li>
+      <li>Task 2</li>
+      <li>Task 3</li>
+    </ul>
+  </div>
+</div>

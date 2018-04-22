@@ -33,6 +33,11 @@ en:
   sign_up: "Sign up"
   sign_in: "Sign in"
   sign_out: "Sign out"
+  my_lists: "My lists"
+  new_list: "New Task List"
+  edit_task_list: "Edit Task List"
+  save: "Save"
+  close: "Close"
 
   btn_reset_password: "Send me reset password instructions"
 

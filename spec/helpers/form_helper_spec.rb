@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe FormHelper, type: :helper do
-  include FormHelper
-
   describe "#input_text" do
     it 'call input_field as: :text' do
       expect(self).to receive(:input_field).with(:foo, :bar, as: :text)
@@ -21,6 +19,13 @@ RSpec.describe FormHelper, type: :helper do
     it 'call input_field as: :password' do
       expect(self).to receive(:input_field).with(:foo, :bar, as: :password)
       input_password(:foo, :bar)
+    end
+  end
+
+  describe "#input_select" do
+    it 'call input_field as: :select' do
+      expect(self).to receive(:input_field).with(:foo, :bar, as: :select, options: [:test])
+      input_select(:foo, :bar, [:test])
     end
   end
 
@@ -66,6 +71,16 @@ RSpec.describe FormHelper, type: :helper do
         input = "<input class=\"form-control\" autocomplete=\"off\" " + \
                 "type=\"password\""
         expect(input_field(:name, f, as: :password)).to include(input)
+      end
+    end
+
+    it 'when as: :select render select with options' do
+      form_for(List.new, url: "/") do |f|
+        field = input_field(:name, f, as: :select, options: [:foo, :bar])
+
+        expect(field).to include("<select class=\"form-control\" ")
+        expect(field).to include("<option value=\"foo\">foo</option>")
+        expect(field).to include("<option value=\"bar\">bar</option>")
       end
     end
 

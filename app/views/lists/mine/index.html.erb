@@ -1,0 +1,23 @@
+<h2 class="page-title"><%= t("my_lists") %></h2>
+
+<div class="row">
+  <div class="col-lg-12 col-md-12 col-sm-12">
+    <div class="pull-right">
+      <%= link_to t("new_list"), new_list_path, class: "btn btn-primary", data: { remote: true } %>
+      <!-- <button id="new_list" class="btn btn-default"><%= t("new_list") %></button> -->
+    </div>
+  </div>
+</div>
+
+<div id="form_list_content">
+</div>
+
+<br />
+
+<div class="row">
+  <% @lists.each do |list| %>
+    <div class="col-lg-4 col-md-6 col-sm-6">
+      <%= render partial: "lists/list", locals: { list: list } %>
+    </div>
+  <% end %>
+</div>
