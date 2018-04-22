@@ -38,6 +38,9 @@ en:
   edit_task_list: "Edit Task List"
   save: "Save"
   close: "Close"
+  cancel: "Cancel"
+  new_task: "New Task"
+  edit_task: "Edit Task"
 
   btn_reset_password: "Send me reset password instructions"
 

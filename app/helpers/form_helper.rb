@@ -1,7 +1,8 @@
 module FormHelper
 
-  def input_text(field, f)
-    input_field(field, f, as: :text)
+  def input_text(field, f, options = {})
+    options[:as] = :text
+    input_field(field, f, options)
   end
 
   def input_email(field, f)
@@ -17,8 +18,8 @@ module FormHelper
   end
 
   def input_field(field, f, options={})
-    content_tag(:div, class: "form-group")do
-      concat f.label(field)
+    content_tag(:div, class: "form-group") do
+      concat f.label(field) if options[:label].nil? || options[:label] != false
 
       concat render_field(field, f, options)
 

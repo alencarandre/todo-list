@@ -1,0 +1,22 @@
+<div id="list_task_form_new"></div>
+<ul>
+  <% list.list_tasks.each do |task| %>
+    <li data-task="<%= task.id %>">
+      <div id="form" class="hidden"></div>
+      <div class="pull-left"><%= task.name %></div>
+      <div class="pull-right">
+        <%=
+          link_to(
+            content_tag(:i, "", class: "fa fa-pencil"),
+            edit_list_list_task_path(list_id: list.id, id: task.id),
+            title: t("edit_task"),
+            data: {
+              remote: true,
+              toggle: :popover
+            }
+          )
+        %>
+      </div>
+    </li>
+  <% end %>
+</ul>

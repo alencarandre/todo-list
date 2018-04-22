@@ -1,0 +1,10 @@
+var container = $(".task_list[data-list='<%= @list.id %>']")
+
+<% if @list_task.errors.present? %>
+  var form = container.find("#list_task_form_new")
+
+  form.html('<%= escape_javascript(render partial: "form")%>')
+<% else %>
+  var form = '<%= escape_javascript(render partial: "lists/tasks", locals: { list: @list }) %>'
+  container.find(".tasks").html(form)
+<% end %>

@@ -1,0 +1,16 @@
+<%= form_for [@list, @list_task], data: { remote: true } do |f| %>
+  <div class="row">
+    <div class="col-sm-12">
+      <%= input_text(:name, f, label: false) %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="pull-right">
+        <%= f.submit t("save"), class: "btn btn-danger btn-sm" %>
+        &nbsp;
+        <%= content_tag :button, t("cancel"), class: "btn btn-default btn-sm" %>
+      </div>
+    </div>
+  </div>
+<% end %>

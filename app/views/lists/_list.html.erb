@@ -1,4 +1,4 @@
-<div class="card border-secundary mb-3 task_list">
+<div class="card border-secundary mb-3 task_list" data-list="<%= list.id %>">
   <div class="card-header">
     <div class="pull-left">
       <%=
@@ -12,16 +12,23 @@
       <%= list.name %>
     </div>
     <div class="pull-right">
+      <%=
+        link_to(
+          content_tag(:i, "", class: "fa fa-plus"),
+          new_list_list_task_path(list_id: list.id),
+          title: t("new_task"),
+          data: {
+            remote: true,
+            toggle: :popover
+          }
+        )
+      %>
       <%= content_tag :i, "", class: "fa fa-star-o" %>
       <%= content_tag :i, "", class: "fa fa-unlock" %>
       <%= content_tag :i, "", class: "fa fa-trash" %>
     </div>
   </div>
-  <div class="card-body text-secondary">
-    <ul>
-      <li>Task 1</li>
-      <li>Task 2</li>
-      <li>Task 3</li>
-    </ul>
+  <div class="card-body text-secondary tasks">
+    <%= render partial: "lists/tasks", locals: { list: list } %>
   </div>
 </div>
