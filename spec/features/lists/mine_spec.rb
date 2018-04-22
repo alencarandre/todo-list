@@ -9,7 +9,9 @@ feature "Lists::Mine" do
   end
 
   context 'when user is logged' do
-    let(:logged_user) { FactoryBot.create(:user, password: '123456', password_confirmation: '123456')}
+    let(:logged_user) { FactoryBot.create(:user,
+                                          password: '123456',
+                                          password_confirmation: '123456')}
 
     before(:each) do
       visit new_user_session_path
@@ -98,7 +100,5 @@ feature "Lists::Mine" do
       end
     end
 
-    # context 'when status list is closed' do
-    # end
   end
 end

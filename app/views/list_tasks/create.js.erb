@@ -1,10 +1,23 @@
-var container = $(".task_list[data-list='<%= @list.id %>']")
+var container_list = $(".task_list[data-list='<%= @list.id %>']")
 
 <% if @list_task.errors.present? %>
-  var form = container.find("#list_task_form_new")
+  var container_form = container_list
+
+  <% if @list_task.list_task %>
+    container_form = container_form.find("li[data-task='<%= @list_task.list_task.id %>']")
+  <% end %>
+
+  var form = container_form.find("#list_task_form_new:first")
 
   form.html('<%= escape_javascript(render partial: "form")%>')
 <% else %>
-  var form = '<%= escape_javascript(render partial: "lists/tasks", locals: { list: @list }) %>'
-  container.find(".tasks").html(form)
+  var form = '<%= \
+                escape_javascript( \
+                    render( \
+                      partial: "lists/tasks", \
+                      locals: { list: @list, tasks: @list.list_tasks.main_tasks } \
+                    ) \
+                ) \
+              %>'
+  container_list.find(".tasks").html(form)
 <% end %>

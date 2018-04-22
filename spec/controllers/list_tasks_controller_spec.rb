@@ -9,32 +9,79 @@ RSpec.describe ListTasksController, type: :controller do
       let(:logged_user) { FactoryBot.create(:user) }
       before(:each) { login(logged_user) }
 
-      context 'when try create task for list that logged user is not owner' do
-        let(:list) { FactoryBot.create(:list, user: FactoryBot.create(:user)) }
+      context 'when try create task for list' do
+        context 'when logged user is not owner' do
+          let(:list) { FactoryBot.create(:list, user: FactoryBot.create(:user)) }
 
-        it 'raise error ActiveRecord::RecordNotFound' do
-          expect {
+          it 'raise error ActiveRecord::RecordNotFound' do
+            expect {
+              post(:create,
+                format: :js,
+                params: { list_id: list.id, list_task: { name: "Task 1" } })
+            }.to raise_error(ActiveRecord::RecordNotFound)
+          end
+        end
+
+        context 'when logged user is owner' do
+          let(:list) { FactoryBot.create(:list, user: logged_user) }
+
+          it 'is able to do' do
+            expect(list.list_tasks.count).to eq(0)
+
             post(:create,
-              format: :js,
-              params: { list_id: list.id, list_task: { name: "Task 1" } })
-          }.to raise_error(ActiveRecord::RecordNotFound)
+                format: :js,
+                params: { list_id: list.id, list_task: { name: 'New Task 1' } })
+
+            task = list.list_tasks.first
+
+            expect(list.list_tasks.count).to eq(1)
+            expect(task.name).to eq("New Task 1")
+          end
         end
       end
 
-      context 'when try create task for list that logged user is owner' do
-        let(:list) { FactoryBot.create(:list, user: logged_user) }
+      context 'when try create sub task' do
+        context 'when parent task not belongs to some list' do
+          let(:list) { FactoryBot.create(:list, user: logged_user) }
 
-        it 'is able to do' do
-          expect(list.list_tasks.count).to eq(0)
+          it 'not create sub task' do
+            parent_task = FactoryBot.create(:list_task)
 
-          post(:create,
-              format: :js,
-              params: { list_id: list.id, list_task: { name: 'New Task 1' } })
+            post(:create,
+                format: :js,
+                params: {
+                  list_id: list.id,
+                  list_task: {
+                    name: "Wrong parent task",
+                    list_task_id: parent_task.id
+                  }
+                })
 
-          task = list.list_tasks.first
+            expect(ListTask.where(name: "Wrong parent task")).to be_blank
+          end
+        end
 
-          expect(list.list_tasks.count).to eq(1)
-          expect(task.name).to eq("New Task 1")
+        context 'when parent task belongs to some list' do
+          let(:list) { FactoryBot.create(:list, user: logged_user) }
+
+          it 'create sub task' do
+            parent_task = FactoryBot.create(:list_task, list: list)
+
+            post(:create,
+                format: :js,
+                params: {
+                  list_id: list.id,
+                  list_task: {
+                    name: "New Sub Task",
+                    list_task_id: parent_task.id
+                  }
+                })
+
+            task = ListTask.where(name: "New Sub Task").first
+
+            expect(task).to be_present
+            expect(task.list_task.id).to eq(parent_task.id)
+          end
         end
       end
     end
@@ -78,8 +125,7 @@ RSpec.describe ListTasksController, type: :controller do
         let(:list) { FactoryBot.create(:list, user: logged_user) }
         let!(:task) { FactoryBot.create(:list_task,
                                         list: list,
-                                        name: "Task",
-                                        status: :opened) }
+                                        name: "Task") }
 
         it 'is able to do' do
           expect(list.list_tasks.count).to eq(1)
@@ -89,14 +135,13 @@ RSpec.describe ListTasksController, type: :controller do
               params: {
                 list_id: task.list.id,
                 id: task.id,
-                  list_task: { name: 'Task (Edited)', status: :closed }
+                  list_task: { name: 'Task (Edited)' }
               })
 
           task = list.list_tasks.first
 
           expect(list.list_tasks.count).to eq(1)
           expect(task.name).to eq('Task (Edited)')
-          expect(task.status).to eq("closed")
         end
       end
     end
@@ -106,6 +151,64 @@ RSpec.describe ListTasksController, type: :controller do
         post(:create,
             format: :js,
             params: { list_id: 1, list_task: { name: 'Task 1' } })
+      end
+
+      it 'gives http status 401' do
+        expect(subject).to have_http_status(401)
+      end
+    end
+  end
+
+
+  describe '#destroy' do
+    context 'when user is logged' do
+      let(:logged_user) { FactoryBot.create(:user) }
+      before(:each) { login(logged_user) }
+
+      context 'when try destroy task for list when logged user is not owner' do
+        let(:list) { FactoryBot.create(:list, user: FactoryBot.create(:user)) }
+        let(:task) { FactoryBot.create(:list_task, list: list) }
+
+        it 'raise error ActiveRecord::RecordNotFound' do
+          expect {
+            delete(:destroy,
+              format: :js,
+              params: {
+                list_id: task.list.id,
+                id: task.id
+              })
+          }.to raise_error(ActiveRecord::RecordNotFound)
+        end
+      end
+
+      context 'when try destroy task for list when logged user is owner' do
+        let(:list) { FactoryBot.create(:list, user: logged_user) }
+        let!(:task) { FactoryBot.create(:list_task,
+                                        list: list,
+                                        name: "Task") }
+
+        it 'is able to do' do
+          expect(list.list_tasks.count).to eq(1)
+
+          delete(:destroy,
+              format: :js,
+              params: {
+                list_id: task.list.id,
+                id: task.id,
+              })
+
+          task = list.list_tasks.first
+
+          expect(task).to be_blank
+        end
+      end
+    end
+
+    context 'when user not logged' do
+      subject do
+        delete(:destroy,
+            format: :js,
+            params: { list_id: 1, id: 1 })
       end
 
       it 'gives http status 401' do

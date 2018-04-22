@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
   resources :lists, except: [:show] do
-    resources :list_tasks
+    resources :list_tasks do
+      get '/new', to: 'list_tasks#new'
+    end
   end
 
   namespace :lists do
