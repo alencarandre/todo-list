@@ -29,6 +29,6 @@
     </div>
   </div>
   <div class="card-body text-secondary tasks">
-    <%= render partial: "lists/tasks", locals: { list: list } %>
+    <%= render partial: "lists/tasks", locals: { tasks: list.list_tasks.main_tasks, list: list } %>
   </div>
 </div>

@@ -24,6 +24,27 @@ RSpec.describe ListTask, type: :model do
     it { should validate_presence_of(:name) }
     it { should validate_presence_of(:list) }
     it { should validate_presence_of(:status) }
+
+    context 'when pass parent task' do
+      context 'when list_task belongs to other list' do
+        it 'gives invalid' do
+          other_list = FactoryBot.create(:list)
+          parent_task = FactoryBot.create(:list_task, list: other_list)
+
+          subject.list_task = parent_task
+          expect(subject).to_not be_valid
+        end
+      end
+
+      context 'when list_task belongs to some list' do
+        it 'gives valid' do
+          parent_task = FactoryBot.create(:list_task, list: subject.list)
+
+          subject.list_task = parent_task
+          expect(subject).to be_valid
+        end
+      end
+    end
   end
 
   describe '#initialize' do
@@ -57,5 +78,17 @@ RSpec.describe ListTask, type: :model do
   describe '#associations' do
     it { should belong_to(:list) }
     it { should belong_to(:list_task) }
+    it { should have_many(:list_tasks) }
+  end
+
+  describe '#scopes' do
+    let(:parent_task) { FactoryBot.create(:list_task) }
+    let!(:task) { FactoryBot.create(:list_task,
+                              list: parent_task.list,
+                              list_task: parent_task) }
+
+    it '.main_tasks' do
+      expect(ListTask.main_tasks.pluck(:id)).to eq([parent_task.id])
+    end
   end
 end
