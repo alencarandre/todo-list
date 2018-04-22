@@ -190,18 +190,16 @@ RSpec.describe ListTasksController, type: :controller do
         it 'is able to do' do
           expect(list.list_tasks.count).to eq(1)
 
-          put(:update,
+          delete(:destroy,
               format: :js,
               params: {
                 list_id: task.list.id,
                 id: task.id,
-                  list_task: { name: 'Task (Edited)' }
               })
 
           task = list.list_tasks.first
 
-          expect(list.list_tasks.count).to eq(1)
-          expect(task.name).to eq('Task (Edited)')
+          expect(task).to be_blank
         end
       end
     end

@@ -25,6 +25,9 @@ class ListTasksController < ApplicationController
   end
 
   def destroy
+    @list_task.destroy
+
+    respond_with @list, @list_task
   end
 
   private
