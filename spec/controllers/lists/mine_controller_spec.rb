@@ -19,10 +19,10 @@ RSpec.describe Lists::MineController, type: :controller do
       it 'list only lists of user logged' do
         another_user = FactoryBot.create(:user)
 
-        list_1 = FactoryBot.create(:list, name: "List 1", user: another_user)
-        list_2 = FactoryBot.create(:list, name: "List 2", user: user)
-        list_3 = FactoryBot.create(:list, name: "List 3", user: user)
-        list_4 = FactoryBot.create(:list, name: "List 4", user: another_user)
+        list_1 = FactoryBot.create(:list, name: "List 1 - Another User", user: another_user)
+        list_2 = FactoryBot.create(:list, name: "List 2 - Logged User", user: user)
+        list_3 = FactoryBot.create(:list, name: "List 3 - Logged User", user: user)
+        list_4 = FactoryBot.create(:list, name: "List 4 - Another User", user: another_user)
 
         get :index
 

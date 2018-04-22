@@ -1,11 +1,16 @@
 class ListsController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
   before_action :authenticate_user!
 
-  before_action :set_list, only: [:update]
+  before_action :set_list, only: [:update, :edit]
+  before_action :new_list, only: [:new]
 
   respond_to :js
 
-  def index; end
+  def new; end
+
+  def edit; end
 
   def create
     @list = List.new(list_params)
@@ -16,7 +21,6 @@ class ListsController < ApplicationController
   end
 
   def update
-    @list = List.find(params[:id])
     @list.update(list_params)
 
     respond_with @list
@@ -25,10 +29,14 @@ class ListsController < ApplicationController
   private
 
   def list_params
-    params.require(:list).permit(:name, :access_type)
+    params.require(:list).permit(:name, :access_type, :status)
   end
 
   def set_list
     @list = List.by_user(current_user).find(params[:id])
+  end
+
+  def new_list
+    @list = List.new
   end
 end

@@ -40,7 +40,7 @@ RSpec.describe List, type: :model do
   end
 
   describe "#status=" do
-    it 'when set invalid values, set nil' do
+    it 'when set invalid values, raise error' do
       list = List.new
 
       [:invalid, :value, :foo, :bar].each do |value|
@@ -61,7 +61,7 @@ RSpec.describe List, type: :model do
   end
 
   describe "#access_type=" do
-    it 'when set invalid values, set nil' do
+    it 'when set invalid values, raise error' do
       list = List.new
 
       [:invalid, :value, :foo, :bar].each do |value|
@@ -81,7 +81,7 @@ RSpec.describe List, type: :model do
     end
   end
 
-  describe "#scopes" do
+  describe ".scopes" do
     it '.by_user' do
       user = FactoryBot.create(:user)
       another_user = FactoryBot.create(:user)
@@ -97,5 +97,15 @@ RSpec.describe List, type: :model do
       expect(list.name).to eq(list_2.name)
       expect(list.user.id).to eq(list_2.user.id)
     end
+
+    it '.order_created_at_desc' do
+      list_1 = FactoryBot.create(:list, name: "List 1")
+      list_2 = FactoryBot.create(:list, name: "List 2")
+
+      lists = List.order_created_at_desc.pluck(:name)
+
+      expect(lists).to eq(['List 2', 'List 1'])
+    end
   end
+
 end

@@ -21,6 +21,7 @@ RSpec.describe ListsController, type: :controller do
 
         expect(list.name).to eq("List 1")
         expect(list.user.id).to eq(user.id)
+        expect(list.access_type).to eq("shared")
       end
     end
 

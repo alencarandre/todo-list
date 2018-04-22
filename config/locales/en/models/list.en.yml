@@ -1,0 +1,18 @@
+en:
+  activerecord:
+    models:
+      list:
+        one: "List"
+        other: "Lists"
+    attributes:
+      list:
+        name: "Name"
+        user: "User"
+        access_type: "Access Type"
+        status: "Status"
+        statuses:
+          opened: "Opened"
+          closed: "Closed"
+        access_types:
+          shared: "Shared"
+          personal: "Personal"
