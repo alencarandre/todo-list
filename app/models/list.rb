@@ -45,9 +45,14 @@ class List < ApplicationRecord
   end
 
   def check_tasks_and_mark_as_closed!
-    if list_tasks.select{ |task| task.closed? }.present?
+    if list_tasks.select{ |task| task.opened? }.blank?
       self.update(status: :closed) if opened?
     end
+  end
+
+  def opened!
+    closed_tasks = list_tasks.select { |task| task.closed? }.count
+    super if list_tasks.blank? || closed_tasks < list_tasks.count
   end
 
   private

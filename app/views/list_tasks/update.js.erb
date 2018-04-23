@@ -6,15 +6,5 @@ var form_container = li_task.find("div#form:first")
 <% if @list_task.errors.present? %>
   form_container.html('<%= escape_javascript(render partial: "form")%>')
 <% else %>
-  var container = $(".task_list[data-list='<%= @list.id %>']")
-
-  var form = '<%= \
-                escape_javascript( \
-                    render( \
-                      partial: "lists/tasks", \
-                      locals: { list: @list, tasks: @list.list_tasks.main_tasks } \
-                    ) \
-                ) \
-              %>'
-  container.find(".tasks").html(form)
+  <%= render "lists/reload_list" %>
 <% end %>

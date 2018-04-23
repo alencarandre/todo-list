@@ -1,49 +1,11 @@
 <div class="card border-secundary mb-3 task_list" data-list="<%= list.id %>">
   <div class="card-header <%= list.status %>">
     <div class="pull-left title">
-      <%=
-        if list.opened?
-          link_to(
-            list.name,
-            list_mark_as_closed_path(list),
-            title: t("mark_as_closed"),
-            data: {
-              remote: true,
-              toggle: :popover
-            }
-          )
-        else
-          link_to(
-            list.name,
-            list_mark_as_opened_path(list),
-            title: t("mark_as_opened"),
-            data: {
-              remote: true,
-              toggle: :popover
-            }
-          )
-        end
-      %>
+      <%= list.decorate.link_to_change_status %>
     </div>
     <div class="pull-right">
-      <%=
-        link_to(
-          content_tag(:i, "", class: "fa fa-pencil"),
-          edit_list_path(list),
-          class: "edit", data: { remote: true }
-        )
-      %>
-      <%=
-        link_to(
-          content_tag(:i, "", class: "fa fa-plus"),
-          new_list_list_task_path(list_id: list.id),
-          title: t("new_task"),
-          data: {
-            remote: true,
-            toggle: :popover
-          }
-        )
-      %>
+      <%= edit_list_link(list) %>
+      <%= new_list_list_task_link(list) %>
       <%= content_tag :i, "", class: "fa fa-star-o" %>
       <%= content_tag :i, "", class: "fa fa-unlock" %>
       <%= content_tag :i, "", class: "fa fa-trash" %>

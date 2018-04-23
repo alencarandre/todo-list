@@ -46,6 +46,11 @@ class ListTask < ApplicationRecord
     list_task.check_subtasks_and_change_my_status! if list_task.present?
   end
 
+  def opened!
+    closed_tasks = list_tasks.select { |task| task.closed? }.count
+    super if list_tasks.blank? || closed_tasks < list_tasks.count
+  end
+
   private
 
   def validate_list_task
@@ -58,6 +63,7 @@ class ListTask < ApplicationRecord
 
   def close_task_cascade!
     list_tasks.each { |task| task.closed! if task.opened? }
+    check_subtasks_and_change_my_status! if list_task.present?
     list.check_tasks_and_mark_as_closed!
   end
 
