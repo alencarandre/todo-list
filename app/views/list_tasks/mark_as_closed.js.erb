@@ -1,11 +1,1 @@
-var container_list = $(".task_list[data-list='<%= @list_task.list.id %>']")
-
-var form = '<%= \
-              escape_javascript( \
-                  render( \
-                    partial: "lists/list", \
-                    locals: { list: @list_task.list } \
-                  ) \
-              ) \
-            %>'
-container_list.parent().html(form)
+<%= render "lists/reload_list" %>
