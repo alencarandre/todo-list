@@ -1,0 +1,10 @@
+var li_task = $(".task_list[data-list='<%= @list.id %>']")
+                .find("li[data-task='<%= @list_task.id %>']")
+
+var form_container = li_task.find("div#form:first")
+
+<% if @list_task.errors.present? %>
+  form_container.html('<%= escape_javascript(render partial: "form")%>')
+<% else %>
+  <%= render "lists/reload_list" %>
+<% end %>

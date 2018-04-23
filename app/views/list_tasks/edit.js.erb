@@ -1,0 +1,9 @@
+var li_task = $(".task_list[data-list='<%= @list.id %>']")
+                .find("li[data-task='<%= @list_task.id %>']")
+
+var form_container = li_task.find("div#form")
+
+li_task.find("*").hide()
+
+form_container.html('<%= escape_javascript( render partial: "form") %>')
+form_container.fadeIn()

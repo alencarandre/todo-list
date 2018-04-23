@@ -10,7 +10,7 @@
   </div>
   <div class="collapse navbar-collapse" id="navbarMenu">
     <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-      <%= render partial: main_menu(false) %>
+      <%= render partial: main_menu(user_signed_in?) %>
     </ul>
   </div>
 </nav>

@@ -16,7 +16,7 @@ feature 'Registration' do
       fill_in 'user_password_confirmation', with: '123456'
 
       within("div.actions") do
-        click_button 'Sign up'
+        click_button I18n.t('sign_up')
       end
 
       user = User.where(name: name).first

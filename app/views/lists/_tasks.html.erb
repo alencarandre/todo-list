@@ -1,0 +1,30 @@
+<div id="list_task_form_new"></div>
+<ul>
+  <% tasks.each do |task| %>
+    <li data-task="<%= task.id %>" class="<%= task.status %>" >
+      <div id="form" class="hidden"></div>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="pull-left text">
+            <%= task.decorate.link_to_change_status %>
+          </div>
+          <div class="pull-right">
+            <%= edit_list_list_task_link(task) %>
+            <%= list_list_task_new_link(task) %>
+            <%= list_list_task_link(task) %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+          <%=
+            render(
+              partial: "lists/tasks",
+              locals: { tasks: task.list_tasks, list: list }
+            )
+          %>
+        </div>
+      </div>
+    </li>
+  <% end %>
+</ul>

@@ -1,0 +1,11 @@
+var container_form = $(".task_list[data-list='<%= @list.id %>']")
+
+<% if @list_task.list_task %>
+  container_form = container_form.find("li[data-task='<%= @list_task.list_task.id %>']")
+<% end %>
+
+container_form = container_form.find("#list_task_form_new:first")
+
+$(container_form).hide()
+$(container_form).html('<%= escape_javascript( render partial: "form") %>')
+$(container_form).fadeIn()

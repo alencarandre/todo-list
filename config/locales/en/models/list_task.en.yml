@@ -1,0 +1,19 @@
+en:
+  activerecord:
+    models:
+      list_task:
+        one: "Task"
+        other: "Tasks"
+    attributes:
+      list_task:
+        name: "Name"
+        status: "Status"
+        list_task: "Parent Task"
+        list: "List"
+        statuses:
+          opened: "Opened"
+          closed: "Closed"
+    errors:
+      models:
+        list_task:
+          invalid_list_task: "Invalid parent task"

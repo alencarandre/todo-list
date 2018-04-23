@@ -16,3 +16,17 @@
 //= require popper
 //= require bootstrap
 //= require_tree .
+
+var Application = (function() {
+  var Application = {}
+
+  Application.init = function() {
+    Popover.init()
+  }
+
+  return Application
+})()
+
+$(document).ready(function() {
+  Application.init()
+})

@@ -1,5 +1,5 @@
 <li class="nav-item">
-  <a class="nav-link" href="#">Menu</a>
+  <%= link_to(t("my_lists"), lists_mine_index_path, class: "nav-link") %>
 </li>
 <li class="nav-item">
   <a class="nav-link" href="#">Menu</a>
@@ -8,5 +8,5 @@
   <a class="nav-link" href="#">Menu</a>
 </li>
 <li class="nav-item">
-  <a class="nav-link" href="#">Menu</a>
+  <%= link_to(t("sign_out"), destroy_user_session_path, method: :delete, class: "nav-link") %>
 </li>

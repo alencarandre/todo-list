@@ -32,6 +32,19 @@
 en:
   sign_up: "Sign up"
   sign_in: "Sign in"
+  sign_out: "Sign out"
+  my_lists: "My lists"
+  new_list: "New Task List"
+  edit_task_list: "Edit Task List"
+  save: "Save"
+  close: "Close"
+  cancel: "Cancel"
+  new_task: "New Task"
+  edit_task: "Edit Task"
+  delete_task: "Delete Task"
+  are_you_sure: "Are you sure?"
+  mark_as_closed: "Mark as closed"
+  mark_as_opened: "Mark as opened"
 
   btn_reset_password: "Send me reset password instructions"
 
