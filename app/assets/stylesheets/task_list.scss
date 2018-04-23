@@ -1,11 +1,13 @@
 $closed-check-color: #5A5A5A;
+$opened-check-color: #efefef;
 
 .task_list {
   .opened {
     .title {
       &:before {
         content: "\f00c";
-        visibility: hidden;
+        font-family: FontAwesome;
+        color: $opened-check-color;
       }
     }
   }
@@ -40,13 +42,13 @@ $closed-check-color: #5A5A5A;
       }
 
       &:before {
-        content: "";
+        content: "\f00c";
         float: left;
         font-family: FontAwesome;
         display: inline-block;
         margin-left: -20px;
         padding: top 10px;
-        color: #efefef;
+        color: $opened-check-color;
       }
 
       &.opened {

@@ -13,16 +13,18 @@ class ListTasksController < ApplicationController
 
   def mark_as_opened
     @list_task = @list.list_tasks.find(params[:list_task_id])
-    @list_task.status = :opened
-    @list_task.save
+    @list_task.opened!
+
+    @list.reload
 
     respond_with @list, @list_task
   end
 
   def mark_as_closed
     @list_task = @list.list_tasks.find(params[:list_task_id])
-    @list_task.status = :closed
-    @list_task.save
+    @list_task.closed!
+
+    @list.reload
 
     respond_with @list, @list_task
   end

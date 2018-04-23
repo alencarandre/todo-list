@@ -138,7 +138,7 @@ RSpec.describe ListTasksController, type: :controller do
                   list_task: { name: 'Task (Edited)' }
               })
 
-          task = list.list_tasks.first
+          task.reload
 
           expect(list.list_tasks.count).to eq(1)
           expect(task.name).to eq('Task (Edited)')
@@ -197,6 +197,7 @@ RSpec.describe ListTasksController, type: :controller do
                 id: task.id,
               })
 
+          list.list_tasks.reload
           task = list.list_tasks.first
 
           expect(task).to be_blank

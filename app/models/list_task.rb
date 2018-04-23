@@ -57,11 +57,12 @@ class ListTask < ApplicationRecord
   end
 
   def close_task_cascade!
-    list_tasks.each { |task| task.closed! }
-    list_task.check_subtasks_and_change_my_status! if list_task.present?
+    list_tasks.each { |task| task.closed! if task.opened? }
+    list.check_tasks_and_mark_as_closed!
   end
 
   def open_parent_task_cascade
     list_task.check_subtasks_and_change_my_status! if list_task.present?
+    list.check_tasks_and_mark_as_opened!
   end
 end
