@@ -43,6 +43,8 @@ en:
   edit_task: "Edit Task"
   delete_task: "Delete Task"
   are_you_sure: "Are you sure?"
+  mark_as_closed: "Mark as closed"
+  mark_as_opened: "Mark as opened"
 
   btn_reset_password: "Send me reset password instructions"
 

@@ -25,9 +25,16 @@
         color: #efefef;
       }
 
-      &.closed {
-        color: silver;
+      &.opened {
+        .text {
+          text-decoration:none;
+          a {
+            color: #0056b3;
+          }
+        }
+      }
 
+      &.closed {
         &:before {
           content: "\f00c";
           color: #5A5A5A;
@@ -35,8 +42,10 @@
 
         .text {
           text-decoration:line-through;
+          a {
+            color: silver;
+          }
         }
-
       }
     }
   }

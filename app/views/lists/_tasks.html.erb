@@ -5,7 +5,31 @@
       <div id="form" class="hidden"></div>
       <div class="row">
         <div class="col-sm-12">
-          <div class="pull-left text"><%= task.name %></div>
+          <div class="pull-left text">
+            <%=
+              if task.status.to_sym == :opened
+                link_to(
+                  task.name,
+                  list_list_task_mark_as_closed_path(list, task),
+                  title: t("mark_as_closed"),
+                  data: {
+                    remote: true,
+                    toggle: :popover
+                  }
+                )
+              else
+                link_to(
+                  task.name,
+                  list_list_task_mark_as_opened_path(list, task),
+                  title: t("mark_as_opened"),
+                  data: {
+                    remote: true,
+                    toggle: :popover
+                  }
+                )
+              end
+            %>
+          </div>
           <div class="pull-right">
             <%=
               link_to(

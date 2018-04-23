@@ -1,0 +1,11 @@
+var container_list = $(".task_list[data-list='<%= @list.id %>']")
+
+var form = '<%= \
+              escape_javascript( \
+                  render( \
+                    partial: "lists/tasks", \
+                    locals: { list: @list, tasks: @list.list_tasks.main_tasks } \
+                  ) \
+              ) \
+            %>'
+container_list.find(".tasks").html(form)
