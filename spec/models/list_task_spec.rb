@@ -199,5 +199,20 @@ RSpec.describe ListTask, type: :model do
 
       end
     end
+
+    context 'when close some task and have other opened tasks' do
+      it 'keep other tasks and list opened' do
+        list = FactoryBot.create(:list, status: :opened)
+        task1 = FactoryBot.create(:list_task, status: :opened, list: list)
+        task2 = FactoryBot.create(:list_task,
+                                        list: list,
+                                        status: :opened)
+
+        task2.closed!
+
+        expect(List.find(list.id)).to be_opened
+        expect(ListTask.find(task1.id)).to be_opened
+      end
+    end
   end
 end
