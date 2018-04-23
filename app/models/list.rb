@@ -50,6 +50,11 @@ class List < ApplicationRecord
     end
   end
 
+  def opened!
+    closed_tasks = list_tasks.select { |task| task.closed? }.count
+    super if list_tasks.blank? || closed_tasks < list_tasks.count
+  end
+
   private
 
   def close_task_cascade!

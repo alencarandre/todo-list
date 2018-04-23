@@ -130,6 +130,26 @@ RSpec.describe List, type: :model do
       end
     end
 
+    context 'when all tasks is closed and try to open' do
+      let(:list) { FactoryBot.create(:list, status: :closed) }
+      let(:task) { FactoryBot.create(:list_task, status: :closed, list: list) }
+      let!(:sub_task) { FactoryBot.create(:list_task,
+                                          list: task.list,
+                                          status: :closed,
+                                          list_task: task) }
+      let!(:sub_sub_task) { FactoryBot.create(:list_task,
+                                              list: sub_task.list,
+                                              status: :closed,
+                                              list_task: sub_task) }
+
+      it 'not open task' do
+        list.reload
+        list.opened!
+
+        expect(list).to be_closed
+      end
+    end
+
     it 'when mark some list as closed, do not change other lists' do
       list = FactoryBot.create(:list, status: :opened)
       sub_task_1 = FactoryBot.create(:list_task, status: :opened, list: list)

@@ -141,6 +141,25 @@ RSpec.describe ListTask, type: :model do
       end
     end
 
+    context 'when all sub tasks is closed and try to open' do
+      let(:task) { FactoryBot.create(:list_task, status: :closed) }
+      let!(:sub_task) { FactoryBot.create(:list_task,
+                                          list: task.list,
+                                          status: :closed,
+                                          list_task: task) }
+      let!(:sub_sub_task) { FactoryBot.create(:list_task,
+                                              list: sub_task.list,
+                                              status: :closed,
+                                              list_task: sub_task) }
+
+      it 'not open task' do
+        task.reload
+        task.opened!
+
+        expect(task).to be_closed
+      end
+    end
+
     context 'when change sub task status' do
       let(:task) { FactoryBot.create(:list_task) }
       let!(:sub_task_1) { FactoryBot.create(:list_task,
