@@ -1,6 +1,9 @@
 <div class="card border-secundary mb-3 task_list" data-list="<%= list.id %>">
   <div class="card-header">
-    <div class="pull-left">
+    <div class="pull-left title">
+      <%= list.name %>
+    </div>
+    <div class="pull-right">
       <%=
         link_to(
           content_tag(:i, "", class: "fa fa-pencil"),
@@ -8,10 +11,6 @@
           class: "edit", data: { remote: true }
         )
       %>
-      &nbsp;
-      <%= list.name %>
-    </div>
-    <div class="pull-right">
       <%=
         link_to(
           content_tag(:i, "", class: "fa fa-plus"),

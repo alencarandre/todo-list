@@ -233,7 +233,7 @@ RSpec.describe ListTasksController, type: :controller do
             params: { list_id: task.list.id, list_task_id: task.id },
             xhr: true )
 
-          expect(ListTask.find(task.id).status).to eq("opened")
+          expect(ListTask.find(task.id)).to be_opened
         end
       end
 
@@ -241,13 +241,13 @@ RSpec.describe ListTasksController, type: :controller do
         let(:list) { FactoryBot.create(:list, user: logged_user) }
         let(:task) { FactoryBot.create(:list_task, list: list, status: :closed) }
 
-        it 'put status closed' do
+        it 'put status opened' do
           get(:mark_as_opened,
             format: :js,
             params: { list_id: task.list.id, list_task_id: task.id },
             xhr: true )
 
-          expect(ListTask.find(task.id).status).to eq("opened")
+          expect(ListTask.find(task.id)).to be_opened
         end
       end
     end
@@ -282,7 +282,7 @@ RSpec.describe ListTasksController, type: :controller do
             params: { list_id: task.list.id, list_task_id: task.id },
             xhr: true )
 
-          expect(ListTask.find(task.id).status).to eq("closed")
+          expect(ListTask.find(task.id)).to be_closed
         end
       end
 
@@ -296,7 +296,7 @@ RSpec.describe ListTasksController, type: :controller do
             params: { list_id: task.list.id, list_task_id: task.id },
             xhr: true )
 
-          expect(ListTask.find(task.id).status).to eq("closed")
+          expect(ListTask.find(task.id)).to be_closed
         end
       end
     end

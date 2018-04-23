@@ -94,4 +94,122 @@ RSpec.describe ListsController, type: :controller do
     end
   end
 
+  describe '#mark_as_opened' do
+    context 'when user is logged' do
+      let(:logged_user) { FactoryBot.create(:user) }
+      before(:each) { login(logged_user) }
+
+      context 'when list owner is not logged user' do
+        let(:list) { FactoryBot.create(:list, user: FactoryBot.create(:user)) }
+
+        it 'raise ActiveRecord::RecordNotFound' do
+          expect {
+            get(:mark_as_opened,
+                format: :js,
+                params: { list_id: list.id },
+                xhr: true)
+          }.to raise_error(ActiveRecord::RecordNotFound)
+        end
+      end
+
+      context 'when list has already opened' do
+        let(:list) { FactoryBot.create(:list, user: logged_user) }
+
+        it'keep opened' do
+          get(:mark_as_opened,
+              format: :js,
+              params: { list_id: list.id },
+              xhr: true )
+
+          expect(List.find(list.id)).to be_opened
+        end
+      end
+
+      context 'when list status is closed' do
+        let(:list) { FactoryBot.create(:list, status: :closed, user: logged_user) }
+
+        it 'put status opened' do
+          get(:mark_as_opened,
+            format: :js,
+            params: { list_id: list.id },
+            xhr: true)
+
+          expect(List.find(list.id)).to be_opened
+        end
+      end
+    end
+
+    context 'when user not logged' do
+      subject do
+        get(:mark_as_opened,
+          format: :js,
+          params: { list_id: 1 },
+          xhr: true )
+      end
+
+      it 'gives http status 401' do
+        expect(subject).to have_http_status(401)
+      end
+    end
+  end
+
+  describe '#mark_as_closed' do
+    context 'when user is logged' do
+      let(:logged_user) { FactoryBot.create(:user) }
+      before(:each) { login(logged_user) }
+
+      context 'when list owner is not logged user' do
+        let(:list) { FactoryBot.create(:list, user: FactoryBot.create(:user)) }
+
+        it 'raise ActiveRecord::RecordNotFound' do
+          expect {
+            get(:mark_as_closed,
+                format: :js,
+                params: { list_id: list.id },
+                xhr: true)
+          }.to raise_error(ActiveRecord::RecordNotFound)
+        end
+      end
+
+      context 'when list has already closed' do
+        let(:list) { FactoryBot.create(:list, status: :closed, user: logged_user) }
+
+        it'keep closed' do
+          get(:mark_as_closed,
+              format: :js,
+              params: { list_id: list.id },
+              xhr: true )
+
+          expect(List.find(list.id)).to be_closed
+        end
+      end
+
+      context 'when list status is opened' do
+        let(:list) { FactoryBot.create(:list, status: :opened, user: logged_user) }
+
+        it 'put status closed' do
+          get(:mark_as_closed,
+            format: :js,
+            params: { list_id: list.id },
+            xhr: true)
+
+          expect(List.find(list.id)).to be_closed
+        end
+      end
+    end
+
+    context 'when user not logged' do
+      subject do
+        get(:mark_as_closed,
+          format: :js,
+          params: { list_id: 1 },
+          xhr: true )
+      end
+
+      it 'gives http status 401' do
+        expect(subject).to have_http_status(401)
+      end
+    end
+  end
+
 end
