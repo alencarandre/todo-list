@@ -1,3 +1,27 @@
+$closed-check-color: #5A5A5A;
+
+.task_list {
+  .opened {
+    .title {
+      &:before {
+        content: "\f00c";
+        visibility: hidden;
+      }
+    }
+  }
+
+  .closed {
+    .title {
+      text-decoration: line-through;
+      &:before {
+        content: "\f00c";
+        font-family: FontAwesome;
+        color: $closed-check-color;
+      }
+    }
+  }
+}
+
 .tasks {
   ul {
     list-style: none;
@@ -37,7 +61,7 @@
       &.closed {
         &:before {
           content: "\f00c";
-          color: #5A5A5A;
+          color: $closed-check-color;
         }
 
         .text {

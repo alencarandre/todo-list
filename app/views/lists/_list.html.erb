@@ -1,7 +1,29 @@
 <div class="card border-secundary mb-3 task_list" data-list="<%= list.id %>">
-  <div class="card-header">
+  <div class="card-header <%= list.status %>">
     <div class="pull-left title">
-      <%= list.name %>
+      <%=
+        if list.opened?
+          link_to(
+            list.name,
+            list_mark_as_closed_path(list),
+            title: t("mark_as_closed"),
+            data: {
+              remote: true,
+              toggle: :popover
+            }
+          )
+        else
+          link_to(
+            list.name,
+            list_mark_as_opened_path(list),
+            title: t("mark_as_opened"),
+            data: {
+              remote: true,
+              toggle: :popover
+            }
+          )
+        end
+      %>
     </div>
     <div class="pull-right">
       <%=
