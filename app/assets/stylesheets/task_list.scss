@@ -1,0 +1,78 @@
+$closed-check-color: #5A5A5A;
+$opened-check-color: #efefef;
+
+.task_list {
+  .opened {
+    .title {
+      &:before {
+        content: "\f00c";
+        font-family: FontAwesome;
+        color: $opened-check-color;
+      }
+    }
+  }
+
+  .closed {
+    .title {
+      text-decoration: line-through;
+      &:before {
+        content: "\f00c";
+        font-family: FontAwesome;
+        color: $closed-check-color;
+      }
+    }
+  }
+}
+
+.tasks {
+  ul {
+    list-style: none;
+    margin-left: -30px;
+
+    ul {
+      margin-left: -25px;
+    }
+
+    li {
+      margin-left: 0px;
+      padding: 5px;
+
+      .row {
+        float: rigth;
+      }
+
+      &:before {
+        content: "\f00c";
+        float: left;
+        font-family: FontAwesome;
+        display: inline-block;
+        margin-left: -20px;
+        padding: top 10px;
+        color: $opened-check-color;
+      }
+
+      &.opened {
+        .text {
+          text-decoration:none;
+          a {
+            color: #0056b3;
+          }
+        }
+      }
+
+      &.closed {
+        &:before {
+          content: "\f00c";
+          color: $closed-check-color;
+        }
+
+        .text {
+          text-decoration:line-through;
+          a {
+            color: silver;
+          }
+        }
+      }
+    }
+  }
+}

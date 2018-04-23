@@ -113,4 +113,78 @@ RSpec.describe List, type: :model do
     end
   end
 
+  describe '#status' do
+    context 'when mark status as closed' do
+      it 'mark all tasks as closed' do
+        list = FactoryBot.create(:list, status: :opened)
+        sub_task_1 = FactoryBot.create(:list_task, status: :opened, list: list)
+        sub_task_2 = FactoryBot.create(:list_task, status: :opened, list: list)
+        sub_sub_task = FactoryBot.create(:list_task,
+                                          status: :opened,
+                                          list: list,
+                                          list_task: sub_task_2)
+
+        list.closed!
+
+        list.list_tasks.all.each { |task| expect(task).to be_closed }
+      end
+    end
+
+    it 'when mark some list as closed, do not change other lists' do
+      list = FactoryBot.create(:list, status: :opened)
+      sub_task_1 = FactoryBot.create(:list_task, status: :opened, list: list)
+      sub_task_2 = FactoryBot.create(:list_task, status: :opened, list: list)
+      sub_sub_task = FactoryBot.create(:list_task,
+                                        status: :opened,
+                                        list: list,
+                                        list_task: sub_task_2)
+
+      other_list = FactoryBot.create(:list, status: :opened)
+      other_sub_task_1 = FactoryBot.create(:list_task, status: :opened, list: other_list)
+      other_sub_task_2 = FactoryBot.create(:list_task, status: :opened, list: other_list)
+      other_sub_sub_task = FactoryBot.create(:list_task,
+                                        status: :opened,
+                                        list: other_list,
+                                        list_task: other_sub_task_2)
+
+      list.closed!
+
+      list.list_tasks.all.each { |task| expect(task).to be_closed }
+      other_list.list_tasks.all.each { |task| expect(task).to be_opened }
+    end
+
+    context 'when mark status as opened' do
+      context 'when change sub task' do
+        it 'when at least one task status is opened mark list status opened' do
+          list = FactoryBot.create(:list, status: :closed)
+          task_1 = FactoryBot.create(:list_task, status: :closed, list: list)
+          task_2 = FactoryBot.create(:list_task, status: :closed, list: list)
+          sub_task = FactoryBot.create(:list_task,
+                                            status: :closed,
+                                            list: list,
+                                            list_task: task_2)
+
+          sub_task.opened!
+
+          list.reload
+
+          expect(list).to be_opened
+        end
+      end
+
+      context 'when change task' do
+        it 'when at least one task status is opened mark list status opened' do
+          list = FactoryBot.create(:list, status: :closed)
+          task_1 = FactoryBot.create(:list_task, status: :closed, list: list)
+
+          task_1.opened!
+
+          list.reload
+
+          expect(list).to be_opened
+        end
+      end
+    end
+  end
+
 end

@@ -1,6 +1,31 @@
 <div class="card border-secundary mb-3 task_list" data-list="<%= list.id %>">
-  <div class="card-header">
-    <div class="pull-left">
+  <div class="card-header <%= list.status %>">
+    <div class="pull-left title">
+      <%=
+        if list.opened?
+          link_to(
+            list.name,
+            list_mark_as_closed_path(list),
+            title: t("mark_as_closed"),
+            data: {
+              remote: true,
+              toggle: :popover
+            }
+          )
+        else
+          link_to(
+            list.name,
+            list_mark_as_opened_path(list),
+            title: t("mark_as_opened"),
+            data: {
+              remote: true,
+              toggle: :popover
+            }
+          )
+        end
+      %>
+    </div>
+    <div class="pull-right">
       <%=
         link_to(
           content_tag(:i, "", class: "fa fa-pencil"),
@@ -8,10 +33,6 @@
           class: "edit", data: { remote: true }
         )
       %>
-      &nbsp;
-      <%= list.name %>
-    </div>
-    <div class="pull-right">
       <%=
         link_to(
           content_tag(:i, "", class: "fa fa-plus"),

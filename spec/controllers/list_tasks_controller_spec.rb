@@ -138,7 +138,7 @@ RSpec.describe ListTasksController, type: :controller do
                   list_task: { name: 'Task (Edited)' }
               })
 
-          task = list.list_tasks.first
+          task.reload
 
           expect(list.list_tasks.count).to eq(1)
           expect(task.name).to eq('Task (Edited)')
@@ -197,6 +197,7 @@ RSpec.describe ListTasksController, type: :controller do
                 id: task.id,
               })
 
+          list.list_tasks.reload
           task = list.list_tasks.first
 
           expect(task).to be_blank
@@ -216,4 +217,103 @@ RSpec.describe ListTasksController, type: :controller do
       end
     end
   end
+
+  describe '#mark_as_opened' do
+    context 'when user is logged' do
+      let(:logged_user) { FactoryBot.create(:user) }
+
+      before(:each) { login(logged_user) }
+
+      context 'when task has already opened' do
+        let(:list) { FactoryBot.create(:list, user: logged_user) }
+        let(:task) { FactoryBot.create(:list_task, list: list, status: :opened) }
+
+        it'keep opened' do
+          get(:mark_as_opened,
+            format: :js,
+            params: { list_id: task.list.id, list_task_id: task.id },
+            xhr: true )
+
+          expect(ListTask.find(task.id)).to be_opened
+        end
+      end
+
+      context 'when task status is closed' do
+        let(:list) { FactoryBot.create(:list, user: logged_user) }
+        let(:task) { FactoryBot.create(:list_task, list: list, status: :closed) }
+
+        it 'put status opened' do
+          get(:mark_as_opened,
+            format: :js,
+            params: { list_id: task.list.id, list_task_id: task.id },
+            xhr: true )
+
+          expect(ListTask.find(task.id)).to be_opened
+        end
+      end
+    end
+
+    context 'when user not logged' do
+      subject do
+        get(:mark_as_opened,
+          format: :js,
+          params: { list_id: 1, list_task_id: 1 },
+          xhr: true )
+      end
+
+      it 'gives http status 401' do
+        expect(subject).to have_http_status(401)
+      end
+    end
+  end
+
+  describe '#mark_as_closed' do
+    context 'when user is logged' do
+      let(:logged_user) { FactoryBot.create(:user) }
+
+      before(:each) { login(logged_user) }
+
+      context 'when task has already closed' do
+        let(:list) { FactoryBot.create(:list, user: logged_user) }
+        let(:task) { FactoryBot.create(:list_task, list: list, status: :closed) }
+
+        it'keep opened' do
+          get(:mark_as_closed,
+            format: :js,
+            params: { list_id: task.list.id, list_task_id: task.id },
+            xhr: true )
+
+          expect(ListTask.find(task.id)).to be_closed
+        end
+      end
+
+      context 'when task status is opened' do
+        let(:list) { FactoryBot.create(:list, user: logged_user) }
+        let(:task) { FactoryBot.create(:list_task, list: list, status: :opened) }
+
+        it 'put status closed' do
+          get(:mark_as_closed,
+            format: :js,
+            params: { list_id: task.list.id, list_task_id: task.id },
+            xhr: true )
+
+          expect(ListTask.find(task.id)).to be_closed
+        end
+      end
+    end
+
+    context 'when user not logged' do
+      subject do
+        get(:mark_as_closed,
+          format: :js,
+          params: { list_id: 1, list_task_id: 1 },
+          xhr: true )
+      end
+
+      it 'gives http status 401' do
+        expect(subject).to have_http_status(401)
+      end
+    end
+  end
+
 end
