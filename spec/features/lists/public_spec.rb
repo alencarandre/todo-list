@@ -12,10 +12,12 @@ feature 'Public Lists' do
   end
 
   context 'when user is logged' do
-    let(:logged_user) { FactoryBot.create(:user) }
+    before(:each) { login(FactoryBot.create(:user)) }
 
-    before(:each) { login(logged_user) }
-
+    let!(:owner_public_list) { FactoryBot.create(:list,
+                                          name: "My public list",
+                                          user: current_user,
+                                          access_type: :shared) }
     let!(:public_list) { FactoryBot.create(:list,
                                           name: "List 1",
                                           access_type: :shared) }
@@ -32,6 +34,14 @@ feature 'Public Lists' do
 
       expect(page).to have_content(public_list.name)
       expect(page).to_not have_content(private_list.name)
+    end
+
+    scenario 'not show lists from user logged' do
+      owner_public_list
+
+      visit lists_public_index_path
+
+      expect(page).to_not have_content(owner_public_list.name)
     end
 
     scenario 'show task in public list' do

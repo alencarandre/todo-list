@@ -15,12 +15,15 @@
 //= require jquery3
 //= require popper
 //= require bootstrap
+//= require toastr
+//= require message-bus
 //= require_tree .
 
 var Application = (function() {
   var Application = {}
 
   Application.init = function() {
+    ListUpdateAdvertiser.init()
     Popover.init()
   }
 

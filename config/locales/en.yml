@@ -58,6 +58,17 @@ en:
 
   sign_up_oauth: "Sign in with %{provider}"
 
+  advertiser:
+    opened: "You have favorite list was opened: %{list_name}"
+    closed: "You have favorite list was closed: %{list_name}"
+    updated: "You have favorite list was updated: Last name: %{list_name}, New name: %{new_name}"
+    closed_task: "You have favorite list was task closed: %{list_name}"
+    opened_task: "You have favorite list was task opened: %{list_name}"
+    new_task: "You have favorite has new task: %{list_name}"
+    new_task: "You have favorite has new task: %{list_name}"
+    update_task: "You have favorite has updated task: %{list_name}"
+
+
   landing:
     title: "Share task with the world and organize your live"
     sub_title: "Better Organization to Get Focused"

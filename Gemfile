@@ -39,12 +39,15 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'bootstrap', '~> 4.1.0'
 gem 'jquery-rails'
 gem "font-awesome-rails", '~> 4.7.0'
+gem 'rails-assets-toastr', source: 'https://rails-assets.org'
 
 gem 'devise', '~> 4.4.3'
 
 gem "responders", '~> 2.4.0'
 
 gem "draper", '~> 3.0.1'
+
+gem 'message_bus'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -51,7 +51,7 @@ module ListHelper
     return if screen == :mine
     link_to(
       content_tag(:i, "", class: "fa fa-star"),
-      list_mark_as_unfavorite_path(list),
+      list_mark_as_unfavorite_path(list_id: list.id),
       title: t("mark_as_unfavorite"),
       data: {
         remote: true,

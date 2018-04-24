@@ -1,5 +1,5 @@
 class ListsController < ApplicationController
-  skip_before_action :verify_authenticity_token
+  include ListAdvertiser
 
   before_action :authenticate_user!
 
@@ -13,13 +13,17 @@ class ListsController < ApplicationController
   def edit; end
 
   def mark_as_opened
-    @list.opened!
+    notify_change_for @list, with: :opened do
+      @list.opened!
+    end
 
     respond_with @list
   end
 
   def mark_as_closed
-    @list.closed!
+    notify_change_for @list, with: :closed do
+      @list.closed!
+    end
 
     respond_with @list
   end
@@ -47,7 +51,9 @@ class ListsController < ApplicationController
   end
 
   def update
-    @list.update(list_params)
+    notify_change_for @list, with: :updated do
+      @list.update(list_params)
+    end
 
     respond_with @list
   end

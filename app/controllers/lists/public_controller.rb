@@ -3,6 +3,7 @@ class Lists::PublicController < ApplicationController
 
   def index
     @lists = List.shared_lists
+                 .exclude_user(current_user)
                  .order_created_at_desc
   end
 
