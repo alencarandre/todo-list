@@ -1,5 +1,5 @@
 <% if @list.errors.present? %>
-  $("#form_list").html('<%= escape_javascript(render partial: "form", locals: { screen: :mine })%>')
+  $("#form_list_content").html('<%= escape_javascript(render partial: "form", locals: { screen: :mine })%>')
 <% else %>
   window.location.reload()
 <% end %>
