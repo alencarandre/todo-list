@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_04_22_004323) do
+ActiveRecord::Schema.define(version: 2018_04_24_012922) do
+
+  create_table "list_favorites", force: :cascade do |t|
+    t.integer "list_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["list_id"], name: "index_list_favorites_on_list_id"
+    t.index ["user_id", "list_id"], name: "index_list_favorites_on_user_id_and_list_id", unique: true
+    t.index ["user_id"], name: "index_list_favorites_on_user_id"
+  end
 
   create_table "list_tasks", force: :cascade do |t|
     t.integer "list_id"

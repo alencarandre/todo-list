@@ -72,6 +72,8 @@ group :test do
   gem 'chromedriver-helper'
   gem 'database_cleaner'
   gem 'shoulda-matchers', '~> 3.1.2'
+
+  gem 'capybara-webkit'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

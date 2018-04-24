@@ -24,6 +24,20 @@ class ListsController < ApplicationController
     respond_with @list
   end
 
+  def mark_as_favorite
+    @list = List.shared_lists.find(params[:list_id])
+    @list.favor!(current_user)
+
+    respond_with @list
+  end
+
+  def mark_as_unfavorite
+    @list = current_user.favorites.find(params[:list_id])
+    @list.unfavor!(current_user)
+
+    respond_with @list
+  end
+
   def create
     @list = List.new(list_params)
     @list.user = current_user
