@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
   namespace :lists do
     resources :mine, only: [:index]
+    resources :public, only: [:index]
   end
 
   root "home#index"

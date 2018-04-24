@@ -111,6 +111,15 @@ RSpec.describe List, type: :model do
 
       expect(lists).to eq(['List 2', 'List 1'])
     end
+
+    it '.shared_lists' do
+      list_1 = FactoryBot.create(:list, name: "List 1", access_type: :shared)
+      list_2 = FactoryBot.create(:list, name: "List 2", access_type: :personal)
+
+      lists = List.shared_lists.pluck(:name)
+
+      expect(lists).to eq(['List 1'])
+    end
   end
 
   describe '#status' do

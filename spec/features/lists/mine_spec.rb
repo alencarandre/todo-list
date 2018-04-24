@@ -1,6 +1,9 @@
 require "rails_helper"
+require 'capybara_support'
 
 feature "Lists::Mine" do
+  include CapybaraSupport
+
   context 'when user is not logged' do
     scenario 'redirect to login' do
       visit lists_mine_index_path
@@ -13,15 +16,7 @@ feature "Lists::Mine" do
                                           password: '123456',
                                           password_confirmation: '123456')}
 
-    before(:each) do
-      visit new_user_session_path
-      fill_in 'user_email', with: logged_user.email
-      fill_in 'user_password', with: '123456'
-
-      within("div.actions") do
-        click_button I18n.t('sign_in')
-      end
-    end
+    before(:each) { login(logged_user) }
 
     scenario 'is able to create new empty list', js: true do
       visit lists_mine_index_path
