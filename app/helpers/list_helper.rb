@@ -34,7 +34,7 @@ module ListHelper
     )
   end
 
-  def new_list_list_task_link(list, screen)
+  def new_list_task_link(list, screen)
     return if screen != :mine
     link_to(
       content_tag(:i, "", class: "fa fa-plus"),
@@ -47,7 +47,7 @@ module ListHelper
     )
   end
 
-  def link_to_unfavor_the_list(list, screen)
+  def list_mark_as_unfavorite_link(list, screen)
     return if screen == :mine
     link_to(
       content_tag(:i, "", class: "fa fa-star"),
@@ -60,7 +60,7 @@ module ListHelper
     )
   end
 
-  def link_to_favor_the_list(list, screen)
+  def list_mark_as_favorite_link(list, screen)
     return if screen == :mine
     link_to(
       content_tag(:i, "", class: "fa fa-star-o"),
@@ -71,6 +71,20 @@ module ListHelper
         toggle: :popover
       }
     )
+  end
 
+  def destroy_list_link(list, screen)
+    return if screen != :mine
+
+    link_to(
+      content_tag(:i, "", class: "fa fa-trash"),
+      list_path(list),
+      title: "Delete list",
+      data: {
+        confirm: t("are_you_sure"),
+        remote: true,
+        method: :delete
+      }
+    )
   end
 end

@@ -8,8 +8,6 @@ Rails.application.routes.draw do
     get 'mark_as_favorite', to: 'lists#mark_as_favorite'
     get 'mark_as_unfavorite', to: 'lists#mark_as_unfavorite'
 
-    resources :list_favorites, only: [:create]
-
     resources :list_tasks do
       get '/new', to: 'list_tasks#new'
 

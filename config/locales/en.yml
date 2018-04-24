@@ -44,6 +44,7 @@ en:
   new_task: "New Task"
   edit_task: "Edit Task"
   delete_task: "Delete Task"
+  delete_list: "Delete List"
   are_you_sure: "Are you sure?"
   mark_as_closed: "Mark as closed"
   mark_as_opened: "Mark as opened"

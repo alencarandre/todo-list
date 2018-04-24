@@ -1,5 +1,5 @@
 module ListTaskHelper
-  def list_list_task_mark_as_closed_link(task, screen)
+  def list_task_mark_as_closed_link(task, screen)
     return task.name if screen != :mine
     link_to(
       task.name,
@@ -12,7 +12,7 @@ module ListTaskHelper
     )
   end
 
-  def list_list_task_mark_as_opened_link(task, screen)
+  def list_task_mark_as_opened_link(task, screen)
     return task.name if screen != :mine
     link_to(
       task.name,
@@ -25,7 +25,7 @@ module ListTaskHelper
     )
   end
 
-  def edit_list_list_task_link(task, screen)
+  def edit_list_task_link(task, screen)
     return if screen != :mine
     link_to(
       content_tag(:i, "", class: "fa fa-pencil"),
@@ -38,8 +38,9 @@ module ListTaskHelper
     )
   end
 
-  def list_list_task_new_link(task, screen)
+  def new_list_sub_task_link(task, screen)
     return if screen != :mine
+
     link_to(
       content_tag(:i, "", class: "fa fa-plus"),
       list_list_task_new_path(task.list, task),
@@ -51,7 +52,7 @@ module ListTaskHelper
     )
   end
 
-  def list_list_task_link(task, screen)
+  def destroy_list_task_link(task, screen)
     return if screen != :mine
 
     link_to(

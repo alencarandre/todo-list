@@ -5,9 +5,9 @@
     </div>
     <div class="pull-right">
       <%= edit_list_link(list, screen) %>
-      <%= new_list_list_task_link(list, screen) %>
+      <%= new_list_task_link(list, screen) %>
       <%= list.decorate.link_to_favor(screen) %>
-      <%= content_tag :i, "", class: "fa fa-trash" %>
+      <%= destroy_list_link(list, screen) %>
     </div>
   </div>
   <div class="card-body text-secondary tasks">
