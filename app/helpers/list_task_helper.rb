@@ -38,8 +38,9 @@ module ListTaskHelper
     )
   end
 
-  def new_list_task_link(task, screen)
+  def new_list_sub_task_link(task, screen)
     return if screen != :mine
+
     link_to(
       content_tag(:i, "", class: "fa fa-plus"),
       list_list_task_new_path(task.list, task),

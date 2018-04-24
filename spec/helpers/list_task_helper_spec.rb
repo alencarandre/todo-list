@@ -73,10 +73,10 @@ RSpec.describe ListTaskHelper, type: :helper do
     end
   end
 
-  describe '#new_list_task_link' do
+  describe '#new_list_sub_task_link' do
     context 'when pass screen :mine' do
       it 'has link to open list' do
-        element = new_list_task_link(task, :mine)
+        element = new_list_sub_task_link(task, :mine)
         href = list_list_task_new_path(task.list, task)
 
         expect(element).to include("href=\"#{href}\"")
@@ -85,7 +85,7 @@ RSpec.describe ListTaskHelper, type: :helper do
 
     context 'when pass screen :public' do
       it 'gives nil' do
-        element = new_list_task_link(task, :public)
+        element = new_list_sub_task_link(task, :public)
         expect(element).to be_nil
       end
     end
