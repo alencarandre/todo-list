@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   resources :lists, except: [:show] do
     get 'mark_as_opened', to: "lists#mark_as_opened"
     get 'mark_as_closed', to: "lists#mark_as_closed"
+    get 'mark_as_favorite', to: 'lists#mark_as_favorite'
+    get 'mark_as_unfavorite', to: 'lists#mark_as_unfavorite'
+
+    resources :list_favorites, only: [:create]
 
     resources :list_tasks do
       get '/new', to: 'list_tasks#new'
@@ -17,6 +21,7 @@ Rails.application.routes.draw do
   namespace :lists do
     resources :mine, only: [:index]
     resources :public, only: [:index]
+    resources :favorites, only: [:index]
   end
 
   root "home#index"

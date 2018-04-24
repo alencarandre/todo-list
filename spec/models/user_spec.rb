@@ -36,5 +36,10 @@ RSpec.describe User, type: :model do
 
   describe '#associations' do
     it { should have_many(:lists) }
+    it {
+      should have_and_belong_to_many(:favorites)
+                .class_name("List")
+                .join_table('list_favorites')
+    }
   end
 end

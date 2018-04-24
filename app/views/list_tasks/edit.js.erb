@@ -5,5 +5,5 @@ var form_container = li_task.find("div#form")
 
 li_task.find("*").hide()
 
-form_container.html('<%= escape_javascript( render partial: "form") %>')
+form_container.html('<%= escape_javascript( render partial: "form", locals: { screen: :mine }) %>')
 form_container.fadeIn()

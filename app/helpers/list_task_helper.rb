@@ -1,6 +1,6 @@
 module ListTaskHelper
-  def list_list_task_mark_as_closed_link(task)
-    return task.name if controller_name == 'public'
+  def list_list_task_mark_as_closed_link(task, screen)
+    return task.name if screen != :mine
     link_to(
       task.name,
       list_list_task_mark_as_closed_path(task.list, task),
@@ -12,8 +12,8 @@ module ListTaskHelper
     )
   end
 
-  def list_list_task_mark_as_opened_link(task)
-    return task.name if controller_name == 'public'
+  def list_list_task_mark_as_opened_link(task, screen)
+    return task.name if screen != :mine
     link_to(
       task.name,
       list_list_task_mark_as_opened_path(task.list, task),
@@ -25,8 +25,8 @@ module ListTaskHelper
     )
   end
 
-  def edit_list_list_task_link(task)
-    return if controller_name == 'public'
+  def edit_list_list_task_link(task, screen)
+    return if screen != :mine
     link_to(
       content_tag(:i, "", class: "fa fa-pencil"),
       edit_list_list_task_path(task.list, task),
@@ -38,8 +38,8 @@ module ListTaskHelper
     )
   end
 
-  def list_list_task_new_link(task)
-    return if controller_name == 'public'
+  def list_list_task_new_link(task, screen)
+    return if screen != :mine
     link_to(
       content_tag(:i, "", class: "fa fa-plus"),
       list_list_task_new_path(task.list, task),
@@ -51,8 +51,8 @@ module ListTaskHelper
     )
   end
 
-  def list_list_task_link(task)
-    return if controller_name == 'public'
+  def list_list_task_link(task, screen)
+    return if screen != :mine
 
     link_to(
       content_tag(:i, "", class: "fa fa-trash"),

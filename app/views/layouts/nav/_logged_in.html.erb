@@ -5,7 +5,7 @@
   <%= link_to(t("public_lists"), lists_public_index_path, class: "nav-link") %>
 </li>
 <li class="nav-item">
-  <a class="nav-link" href="#">Menu</a>
+  <%= link_to(t("my_favorite_lists"), lists_favorites_path, class: "nav-link") %>
 </li>
 <li class="nav-item">
   <%= link_to(t("sign_out"), destroy_user_session_path, method: :delete, class: "nav-link") %>

@@ -30,6 +30,7 @@ RSpec.describe List, type: :model do
   describe '#associations' do
     it { should belong_to(:user) }
     it { should have_many(:list_tasks) }
+    it { should have_many(:list_favorites) }
   end
 
   describe "#initialize" do

@@ -14,6 +14,7 @@
 class List < ApplicationRecord
   belongs_to :user
   has_many :list_tasks
+  has_many :list_favorites
 
   STATUS_VALUES = [:opened, :closed]
   ACCESS_TYPE_VALUES = [:shared, :personal]
@@ -54,6 +55,18 @@ class List < ApplicationRecord
   def opened!
     closed_tasks = list_tasks.select { |task| task.closed? }.count
     super if list_tasks.blank? || closed_tasks < list_tasks.count
+  end
+
+  def favor!(user)
+    list_favorites.find_or_create_by(user_id: user.id)
+  end
+
+  def unfavor!(user)
+    list_favorites.find_by(user_id: user.id).destroy
+  end
+
+  def favorite?(user)
+    list_favorites.find_by(user_id: user.id)
   end
 
   private

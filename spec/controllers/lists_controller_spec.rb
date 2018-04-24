@@ -96,8 +96,7 @@ RSpec.describe ListsController, type: :controller do
 
   describe '#mark_as_opened' do
     context 'when user is logged' do
-      let(:logged_user) { FactoryBot.create(:user) }
-      before(:each) { login(logged_user) }
+      before(:each) { login(FactoryBot.create(:user)) }
 
       context 'when list owner is not logged user' do
         let(:list) { FactoryBot.create(:list, user: FactoryBot.create(:user)) }
@@ -113,7 +112,7 @@ RSpec.describe ListsController, type: :controller do
       end
 
       context 'when list has already opened' do
-        let(:list) { FactoryBot.create(:list, user: logged_user) }
+        let(:list) { FactoryBot.create(:list, user: current_user) }
 
         it'keep opened' do
           get(:mark_as_opened,
@@ -126,7 +125,7 @@ RSpec.describe ListsController, type: :controller do
       end
 
       context 'when list status is closed' do
-        let(:list) { FactoryBot.create(:list, status: :closed, user: logged_user) }
+        let(:list) { FactoryBot.create(:list, status: :closed, user: current_user) }
 
         it 'put status opened' do
           get(:mark_as_opened,
@@ -155,8 +154,7 @@ RSpec.describe ListsController, type: :controller do
 
   describe '#mark_as_closed' do
     context 'when user is logged' do
-      let(:logged_user) { FactoryBot.create(:user) }
-      before(:each) { login(logged_user) }
+      before(:each) { login(FactoryBot.create(:user)) }
 
       context 'when list owner is not logged user' do
         let(:list) { FactoryBot.create(:list, user: FactoryBot.create(:user)) }
@@ -172,7 +170,7 @@ RSpec.describe ListsController, type: :controller do
       end
 
       context 'when list has already closed' do
-        let(:list) { FactoryBot.create(:list, status: :closed, user: logged_user) }
+        let(:list) { FactoryBot.create(:list, status: :closed, user: current_user) }
 
         it'keep closed' do
           get(:mark_as_closed,
@@ -185,7 +183,7 @@ RSpec.describe ListsController, type: :controller do
       end
 
       context 'when list status is opened' do
-        let(:list) { FactoryBot.create(:list, status: :opened, user: logged_user) }
+        let(:list) { FactoryBot.create(:list, status: :opened, user: current_user) }
 
         it 'put status closed' do
           get(:mark_as_closed,
@@ -208,6 +206,73 @@ RSpec.describe ListsController, type: :controller do
 
       it 'gives http status 401' do
         expect(subject).to have_http_status(401)
+      end
+    end
+  end
+
+  describe '#mark_as_favorite' do
+    context 'when user is not logged' do
+      it 'redirect to login page' do
+        get(:mark_as_favorite,
+            format: :js,
+            xhr: true,
+            params: { list_id: 1 })
+        expect(response).to have_http_status(401)
+      end
+    end
+
+    context 'when user is logged' do
+      before(:each) { login(FactoryBot.create(:user)) }
+
+      context 'when list is public' do
+        let!(:list) { FactoryBot.create(:list, access_type: :shared) }
+
+        it 'mark list as favorite for logged user' do
+          get(:mark_as_favorite,
+              format: :js,
+              xhr: true,
+              params: { list_id: list.id })
+
+          current_user.favorites.reload
+          favorite = current_user.favorites.first
+
+          expect(favorite.id).to eq(list.id)
+        end
+      end
+
+      context 'when list is private' do
+        let!(:list) { FactoryBot.create(:list, access_type: :personal) }
+
+        subject { get(:mark_as_favorite, format: :js, params: { list_id: list.id }) }
+
+        it 'raise ActiveRecord:RecordNotFound' do
+          expect{ subject }.to raise_error(ActiveRecord::RecordNotFound)
+        end
+      end
+    end
+  end
+
+
+  describe '#mark_as_unfavorite' do
+    context 'when user is not logged' do
+      it 'redirect to login page' do
+        delete(:mark_as_unfavorite, params: { list_id: 1 })
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+
+    context 'when user is logged' do
+      before(:each) { login(FactoryBot.create(:user)) }
+
+      context 'when unfavorite list from another user' do
+        let!(:list) { FactoryBot.create(:list) }
+
+        subject { get(:mark_as_unfavorite, format: :js, params: { list_id: list.id }) }
+
+        it 'raise ActiveRecord::RecordNotFound' do
+          FactoryBot.create(:list, user: current_user)
+          expect{ subject }.to raise_error(ActiveRecord::RecordNotFound)
+        end
       end
     end
   end

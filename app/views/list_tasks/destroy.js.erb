@@ -4,7 +4,9 @@ var form = '<%= \
               escape_javascript( \
                   render( \
                     partial: "lists/tasks", \
-                    locals: { list: @list, tasks: @list.list_tasks.main_tasks } \
+                    locals: { list: @list, \
+                              tasks: @list.list_tasks.main_tasks, \
+                              screen: :mine } \
                   ) \
               ) \
             %>'

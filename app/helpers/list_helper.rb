@@ -1,6 +1,6 @@
 module ListHelper
-  def list_mark_as_closed_link(list)
-    return list.name if controller_name == 'public'
+  def list_mark_as_closed_link(list, screen)
+    return list.name if screen != :mine
     link_to(
       list.name,
       list_mark_as_closed_path(list_id: list.id),
@@ -12,8 +12,8 @@ module ListHelper
     )
   end
 
-  def list_mark_as_opened_link(list)
-    return list.name if controller_name == 'public'
+  def list_mark_as_opened_link(list, screen)
+    return list.name if screen != :mine
     link_to(
       list.name,
       list_mark_as_opened_path(list_id: list.id),
@@ -25,8 +25,8 @@ module ListHelper
     )
   end
 
-  def edit_list_link(list)
-    return if controller_name == 'public'
+  def edit_list_link(list, screen)
+    return if screen != :mine
     link_to(
       content_tag(:i, "", class: "fa fa-pencil"),
       edit_list_path(list),
@@ -34,8 +34,8 @@ module ListHelper
     )
   end
 
-  def new_list_list_task_link(list)
-    return if controller_name == 'public'
+  def new_list_list_task_link(list, screen)
+    return if screen != :mine
     link_to(
       content_tag(:i, "", class: "fa fa-plus"),
       new_list_list_task_path(list_id: list.id),
@@ -45,5 +45,32 @@ module ListHelper
         toggle: :popover
       }
     )
+  end
+
+  def link_to_unfavor_the_list(list, screen)
+    return if screen == :mine
+    link_to(
+      content_tag(:i, "", class: "fa fa-star"),
+      list_mark_as_unfavorite_path(list),
+      title: t("mark_as_unfavorite"),
+      data: {
+        remote: true,
+        toggle: :popover
+      }
+    )
+  end
+
+  def link_to_favor_the_list(list, screen)
+    return if screen == :mine
+    link_to(
+      content_tag(:i, "", class: "fa fa-star-o"),
+      list_mark_as_favorite_path(list),
+      title: t("mark_as_favorite"),
+      data: {
+        remote: true,
+        toggle: :popover
+      }
+    )
+
   end
 end

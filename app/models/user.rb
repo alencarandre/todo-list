@@ -27,4 +27,7 @@ class User < ApplicationRecord
   validates :name, presence: true
 
   has_many :lists
+  has_and_belongs_to_many :favorites,
+    class_name: "List",
+    join_table: :list_favorites
 end

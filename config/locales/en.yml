@@ -34,6 +34,7 @@ en:
   sign_in: "Sign in"
   sign_out: "Sign out"
   my_lists: "My lists"
+  my_favorite_lists: "My favorite lists"
   public_lists: "Public lists"
   new_list: "New Task List"
   edit_task_list: "Edit Task List"
@@ -46,6 +47,8 @@ en:
   are_you_sure: "Are you sure?"
   mark_as_closed: "Mark as closed"
   mark_as_opened: "Mark as opened"
+  mark_as_favorite: "Mark as favorite"
+  mark_as_unfavorite: "Remove favorite"
 
   btn_reset_password: "Send me reset password instructions"
 

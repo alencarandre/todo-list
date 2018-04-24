@@ -6,12 +6,12 @@
       <div class="row">
         <div class="col-sm-12">
           <div class="pull-left text">
-            <%= task.decorate.link_to_change_status %>
+            <%= task.decorate.link_to_change_status(screen) %>
           </div>
           <div class="pull-right">
-            <%= edit_list_list_task_link(task) %>
-            <%= list_list_task_new_link(task) %>
-            <%= list_list_task_link(task) %>
+            <%= edit_list_list_task_link(task, screen) %>
+            <%= list_list_task_new_link(task, screen) %>
+            <%= list_list_task_link(task, screen) %>
           </div>
         </div>
       </div>
@@ -20,7 +20,7 @@
           <%=
             render(
               partial: "lists/tasks",
-              locals: { tasks: task.list_tasks, list: list }
+              locals: { tasks: task.list_tasks, list: list, screen: screen }
             )
           %>
         </div>

@@ -1,17 +1,19 @@
 <div class="card border-secundary mb-3 task_list" data-list="<%= list.id %>">
   <div class="card-header <%= list.status %>">
     <div class="pull-left title">
-      <%= list.decorate.link_to_change_status %>
+      <%= list.decorate.link_to_change_status(screen) %>
     </div>
     <div class="pull-right">
-      <%= edit_list_link(list) %>
-      <%= new_list_list_task_link(list) %>
-      <%= content_tag :i, "", class: "fa fa-star-o" %>
-      <%= content_tag :i, "", class: "fa fa-unlock" %>
+      <%= edit_list_link(list, screen) %>
+      <%= new_list_list_task_link(list, screen) %>
+      <%= list.decorate.link_to_favor(screen) %>
       <%= content_tag :i, "", class: "fa fa-trash" %>
     </div>
   </div>
   <div class="card-body text-secondary tasks">
-    <%= render partial: "lists/tasks", locals: { tasks: list.list_tasks.main_tasks, list: list } %>
+    <%= render partial: "lists/tasks",
+               locals: { tasks: list.list_tasks.main_tasks,
+                         list: list,
+                         screen: screen } %>
   </div>
 </div>

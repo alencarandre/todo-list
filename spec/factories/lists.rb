@@ -13,7 +13,7 @@
 
 FactoryBot.define do
   factory :list do
-    name "MyList"
+    sequence(:name) { |n| "List #{n}" }
     user
     access_type :shared
     status :opened
