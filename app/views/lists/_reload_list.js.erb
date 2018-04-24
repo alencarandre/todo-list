@@ -4,7 +4,7 @@ var form = '<%= \
               escape_javascript( \
                   render( \
                     partial: "lists/list", \
-                    locals: { list: @list } \
+                    locals: { list: @list, screen: screen } \
                   ) \
               ) \
             %>'

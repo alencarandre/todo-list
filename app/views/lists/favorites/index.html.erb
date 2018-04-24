@@ -3,7 +3,7 @@
 <div class="row">
   <% @lists.each do |list| %>
     <div class="col-lg-4 col-md-6 col-sm-12">
-      <%= render partial: "lists/list", locals: { list: list } %>
+      <%= render partial: "lists/list", locals: { list: list, screen: :public } %>
     </div>
   <% end %>
 </div>

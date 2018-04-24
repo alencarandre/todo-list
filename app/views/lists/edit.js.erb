@@ -1,4 +1,5 @@
 $("#form_list_content").html('<%= escape_javascript( \
-                        render partial: "modal", locals: { title: t("edit_list") }) \
+                        render partial: "modal", \
+                              locals: { title: t("edit_list"), screen: :mine }) \
                       %>')
 $('#modal_form_list').modal('show')

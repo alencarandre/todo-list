@@ -7,5 +7,5 @@ var container_form = $(".task_list[data-list='<%= @list.id %>']")
 container_form = container_form.find("#list_task_form_new:first")
 
 $(container_form).hide()
-$(container_form).html('<%= escape_javascript( render partial: "form") %>')
+$(container_form).html('<%= escape_javascript( render partial: "form", locals: { screen: :mine }) %>')
 $(container_form).fadeIn()
