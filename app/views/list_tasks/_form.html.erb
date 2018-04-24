@@ -10,7 +10,10 @@
       <div class="pull-right">
         <%= f.submit t("save"), class: "btn btn-danger btn-sm" %>
         &nbsp;
-        <%= content_tag :button, t("cancel"), class: "btn btn-default btn-sm" %>
+        <%= content_tag :button,
+                        t("cancel"),
+                        class: "btn btn-default btn-sm",
+                        data: { close: :form } %>
       </div>
     </div>
   </div>
