@@ -33,6 +33,7 @@ class List < ApplicationRecord
   scope :by_user, -> (user) { where(user: user) }
   scope :order_created_at_desc, -> { order("created_at DESC") }
   scope :shared_lists, -> { where(access_type: :shared) }
+  scope :exclude_user, -> (user) { where.not(user: user) }
 
   def initialize(attrs = {})
     super
