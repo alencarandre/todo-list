@@ -47,28 +47,30 @@ module ListHelper
     )
   end
 
+  def link_to_unfavor_the_list(list, screen)
+    return if screen == :mine
+    link_to(
+      content_tag(:i, "", class: "fa fa-star"),
+      list_mark_as_unfavorite_path(list),
+      title: t("mark_as_unfavorite"),
+      data: {
+        remote: true,
+        toggle: :popover
+      }
+    )
+  end
+
   def link_to_favor_the_list(list, screen)
-    return if screen != :public
-    if list.favorite?(current_user)
-      link_to(
-        content_tag(:i, "", class: "fa fa-star"),
-        list_mark_as_unfavorite_path(list),
-        title: t("mark_as_unfavorite"),
-        data: {
-          remote: true,
-          toggle: :popover
-        }
-      )
-    else
-      link_to(
-        content_tag(:i, "", class: "fa fa-star-o"),
-        list_mark_as_favorite_path(list),
-        title: t("mark_as_favorite"),
-        data: {
-          remote: true,
-          toggle: :popover
-        }
-      )
-    end
+    return if screen == :mine
+    link_to(
+      content_tag(:i, "", class: "fa fa-star-o"),
+      list_mark_as_favorite_path(list),
+      title: t("mark_as_favorite"),
+      data: {
+        remote: true,
+        toggle: :popover
+      }
+    )
+
   end
 end
