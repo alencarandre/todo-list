@@ -78,7 +78,7 @@ RSpec.describe ListHelper, type: :helper do
   describe '#new_list_list_task_path' do
     context 'when pass screen :mine' do
       it 'has a link to new list' do
-        element = new_list_list_task_link(list, :mine)
+        element = new_list_task_link(list, :mine)
         href = new_list_list_task_path(list)
 
         expect(element).to include("href=\"#{href}\"")
@@ -87,7 +87,7 @@ RSpec.describe ListHelper, type: :helper do
 
     context 'when pass screen :public' do
       it 'gives nil' do
-        element = new_list_list_task_link(list, :public)
+        element = new_list_task_link(list, :public)
         expect(element).to be_nil
       end
     end
@@ -100,7 +100,7 @@ RSpec.describe ListHelper, type: :helper do
       let(:list) { FactoryBot.create(:list) }
 
       it 'gives link to favor the list' do
-        element = link_to_favor_the_list(list, :public)
+        element = list_mark_as_favorite_link(list, :public)
         href = list_mark_as_favorite_path(list)
 
         expect(element).to include("href=\"#{href}\"")
@@ -109,7 +109,7 @@ RSpec.describe ListHelper, type: :helper do
 
     context 'when pass screen :mine' do
       it 'gives nil' do
-        element = link_to_favor_the_list(list, :mine)
+        element = list_mark_as_favorite_link(list, :mine)
         expect(element).to be_nil
       end
     end
@@ -124,7 +124,7 @@ RSpec.describe ListHelper, type: :helper do
       let(:list) { FactoryBot.create(:list) }
 
       it 'gives link to unfavor the list' do
-        element = link_to_unfavor_the_list(list, :public)
+        element = list_mark_as_unfavorite_link(list, :public)
         href = list_mark_as_unfavorite_path(list)
 
         expect(element).to include("href=\"#{href}\"")
@@ -133,7 +133,7 @@ RSpec.describe ListHelper, type: :helper do
 
     context 'when pass screen :mine' do
       it 'gives nil' do
-        element = link_to_unfavor_the_list(list, :mine)
+        element = list_mark_as_unfavorite_link(list, :mine)
         expect(element).to be_nil
       end
     end

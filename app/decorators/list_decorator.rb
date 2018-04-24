@@ -29,9 +29,9 @@ class ListDecorator < Draper::Decorator
 
   def link_to_favor(screen)
     if model.favorite?(h.current_user)
-      h.link_to_unfavor_the_list(model, screen)
+      h.list_mark_as_unfavorite_link(model, screen)
     else
-      h.link_to_favor_the_list(model, screen)
+      h.list_mark_as_favorite_link(model, screen)
     end
   end
 end
