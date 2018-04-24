@@ -34,6 +34,7 @@ en:
   sign_in: "Sign in"
   sign_out: "Sign out"
   my_lists: "My lists"
+  public_lists: "Public lists"
   new_list: "New Task List"
   edit_task_list: "Edit Task List"
   save: "Save"
