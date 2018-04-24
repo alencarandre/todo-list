@@ -13,7 +13,7 @@
 
 class List < ApplicationRecord
   belongs_to :user
-  has_many :list_tasks
+  has_many :list_tasks, dependent: :destroy
   has_many :list_favorites
 
   STATUS_VALUES = [:opened, :closed]

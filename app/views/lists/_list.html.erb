@@ -7,7 +7,7 @@
       <%= edit_list_link(list, screen) %>
       <%= new_list_list_task_link(list, screen) %>
       <%= list.decorate.link_to_favor(screen) %>
-      <%= content_tag :i, "", class: "fa fa-trash" %>
+      <%= link_to_destroy_list(list, screen) %>
     </div>
   </div>
   <div class="card-body text-secondary tasks">

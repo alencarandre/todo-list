@@ -71,6 +71,20 @@ module ListHelper
         toggle: :popover
       }
     )
+  end
 
+  def link_to_destroy_list(list, screen)
+    return if screen != :mine
+
+    link_to(
+      content_tag(:i, "", class: "fa fa-trash"),
+      list_path(list),
+      title: "Delete list",
+      data: {
+        confirm: t("are_you_sure"),
+        remote: true,
+        method: :delete
+      }
+    )
   end
 end

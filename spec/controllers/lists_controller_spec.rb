@@ -79,14 +79,66 @@ RSpec.describe ListsController, type: :controller do
     end
 
     context 'when user is not logged' do
-      let!(:list) { FactoryBot.create(:list, user: user, name: "List 1") }
       subject do
         params = {
-          id: list.id,
+          id: 1,
           list: { name: 'List 1 (edited)' }
         }
         put(:update, format: :js, params: params)
       end
+
+      it 'gives redirect to sign_in page' do
+        expect(subject).to have_http_status(401)
+      end
+    end
+  end
+
+  describe '#destroy' do
+    context 'when user is logged' do
+      before(:each) { login(FactoryBot.create(:user)) }
+
+      context 'when list owner is not logged user' do
+        let(:list) { FactoryBot.create(:list, user: FactoryBot.create(:user)) }
+
+        it 'raise ActiveRecord::RecordNotFound' do
+          expect {
+            delete(:destroy,
+                format: :js,
+                params: { id: list.id },
+                xhr: true)
+          }.to raise_error(ActiveRecord::RecordNotFound)
+        end
+      end
+
+      context 'when list owner is logged user' do
+        let(:list) { FactoryBot.create(:list, user: current_user) }
+
+        it 'destroy the list' do
+          list_id = list.id
+          delete(:destroy, params: { id: list_id }, format: :js)
+
+          expect(List.where(id: list_id).first).to be_blank
+        end
+
+        context 'when have tasks' do
+          before(:each) do
+            (0..1).each do |n|
+              FactoryBot.create(:list_task, list: list)
+            end
+          end
+
+          it 'destroy all tasks as well' do
+            list_id = list.id
+            delete(:destroy, params: { id: list_id }, format: :js)
+
+            expect(ListTask.where(list_id: list_id)).to be_blank
+          end
+        end
+      end
+    end
+
+    context 'when user is not logged' do
+      subject { delete(:destroy, format: :js, params: { id: 1}) }
 
       it 'gives redirect to sign_in page' do
         expect(subject).to have_http_status(401)

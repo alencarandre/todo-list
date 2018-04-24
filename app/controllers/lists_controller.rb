@@ -3,7 +3,8 @@ class ListsController < ApplicationController
 
   before_action :authenticate_user!
 
-  before_action :set_list, only: [:update, :edit, :mark_as_opened, :mark_as_closed]
+  before_action :set_list, only: [:update, :edit, :destroy,
+                                  :mark_as_opened, :mark_as_closed]
   before_action :new_list, only: [:new]
 
   respond_to :js
@@ -56,6 +57,10 @@ class ListsController < ApplicationController
     end
 
     respond_with @list
+  end
+
+  def destroy
+    @list.destroy
   end
 
   private
